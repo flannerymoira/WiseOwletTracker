@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@drawable/gradient"
+tools:context=".StudentRegistration">
+
+<TextView
+    android:id="@+id/txtReg"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="50dp"
+    android:text="Sign Up"
+    android:textColor="@color/colorPrimary"
+    android:textSize="24sp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<EditText
+    android:id="@+id/txtLName"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:ems="10"
+    android:hint="@string/l_name"
+    android:inputType="textPersonName"
+    app:layout_constraintStart_toStartOf="@+id/txtFName"
+    app:layout_constraintTop_toBottomOf="@+id/txtFName" />
+
+<EditText
+    android:id="@+id/txtEmail"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:ems="10"
+    android:hint="@string/email"
+    android:inputType="textEmailAddress"
+    app:layout_constraintStart_toStartOf="@+id/txtLName"
+    app:layout_constraintTop_toBottomOf="@+id/txtLName" />
+
+<EditText
+    android:id="@+id/txtPhone"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:ems="10"
+    android:hint="@string/telephone"
+    android:inputType="phone"
+    app:layout_constraintStart_toStartOf="@+id/txtConfPass"
+    app:layout_constraintTop_toBottomOf="@+id/txtConfPass" />
+
+<EditText
+    android:id="@+id/txtFName"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="32dp"
+    android:ems="10"
+    android:hint="@string/f_Name"
+    android:inputType="textPersonName"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.197"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/txtReg" />
+
+<EditText
+    android:id="@+id/txtCreatePass"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:ems="10"
+    android:hint="@string/create_pass"
+    android:inputType="textPassword"
+    app:layout_constraintStart_toStartOf="@+id/txtEmail"
+    app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
+
+<EditText
+    android:id="@+id/txtConfPass"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:ems="10"
+    android:hint="@string/conf_pass"
+    android:inputType="textPassword"
+    app:layout_constraintStart_toStartOf="@+id/txtCreatePass"
+    app:layout_constraintTop_toBottomOf="@+id/txtCreatePass" />
+
+<Button
+    android:id="@+id/btnContReg"
+    android:layout_width="105dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="150dp"
+    android:layout_marginLeft="150dp"
+    android:layout_marginTop="480dp"
+    android:layout_marginEnd="100dp"
+    android:layout_marginRight="100dp"
+    android:text="@string/btn_cont"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
