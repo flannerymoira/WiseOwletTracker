@@ -11,7 +11,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static long StudentId;
 
    public DatabaseHelper(Context context) {
-        super(context, "wiseOwlet.db", null, 1);
+        super(context, "wiseOwlet2.db", null, 1);
     }
 
     @Override
@@ -23,7 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //insert new student into the database
-    public boolean insert(String first_name, String surname, String email, String password, String phone){
+    public boolean createStudent(String first_name, String surname, String email, String password, String phone){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -72,16 +72,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean insertSSY(String year, int subjectId, int target) {
+    public boolean createStudyTarget(int daily_target, int weekly_target) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("student_id",StudentId);
+        contentValues.put("daily_target",daily_target);
+        contentValues.put("weekly_target",weekly_target);
+
+        long result = db.insert("study_target", "student_id, " +
+                "daily_target, weekly_target", contentValues);
+
+        db.close();
+        if(result==-1)
+            return false;
+        else
+            return true;
+
+    }
+
+    public boolean createStudentSubject(String year, int subjectId, int target) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("student_id",StudentId);
         contentValues.put("subject_id",subjectId);
         contentValues.put("year",year);
-        contentValues.put("target",target);
+        contentValues.put("subject_target",target);
 
         long result = db.insert("student_subject", "student_id, " +
-                "subject_id, year, target", contentValues);
+                "subject_id, year, subject_target", contentValues);
 
         db.close();
         if(result==-1)

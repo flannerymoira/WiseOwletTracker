@@ -47,7 +47,7 @@ public class StudentRegistration extends AppCompatActivity {
                     if (password_S.equals(confirm_S)) {
                         boolean checkEmail = mydb.checkEmail(email_S);
                         if (checkEmail) {
-                            boolean added = mydb.insert(first_name_S, surname_S, email_S, password_S, phone_S);
+                            boolean added = mydb.createStudent(first_name_S, surname_S, email_S, password_S, phone_S);
                             if (added) {
                                 Toast.makeText(getApplicationContext(), "Account Registered!", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(StudentRegistration.this, SetupSubjects.class));

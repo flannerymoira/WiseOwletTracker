@@ -3,7 +3,9 @@
     <string name="welcome">Welcome</string>
     <string name="Subjects">Choose Subject:</string>
     <string name="Year">Choose Year:</string>
-    <string name="Target">Enter Target:</string>
+    <string name="daily_target">Daily Target:</string>
+    <string name="weekly_target">Weekly Target:</string>
+    <string name="Target">Subject Target:</string>
     <string name="log_in">Log In</string>
     <string name="stopwatch">Stop Watch</string>
     <string name="zerotime">00:00:00</string>
@@ -16,7 +18,8 @@
     <string name="no_account">Don\'t have an account?</string>
     <string name="about_us">About Us</string>
     <string name="Rgt">Register</string>
-    <string name="Add">Add</string>
+    <string name="add_target">Add Targets</string>
+    <string name="Add">Add Subject</string>
     <string name="quote">Quote</string>
     <string name="email">E-mail</string>
     <string name="password">Password</string>

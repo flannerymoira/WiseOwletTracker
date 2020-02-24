@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         //Access to database
-        DatabaseOpenHelper conn = new DatabaseOpenHelper(this, "wiseOwlet.db", null, 1);
+        DatabaseOpenHelper conn = new DatabaseOpenHelper(this, "wiseOwlet2.db", null, 1);
         db = conn.getWritableDatabase();
 
         super.onCreate(savedInstanceState);

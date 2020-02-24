@@ -2,21 +2,19 @@ package com.example.wiseowlettracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-        import android.database.Cursor;
-        import android.database.sqlite.SQLiteDatabase;
-        import android.os.Bundle;
-        import android.view.View;
-        import android.widget.AdapterView;
-        import android.widget.ArrayAdapter;
-        import android.widget.Button;
-        import android.widget.EditText;
-        import android.widget.Spinner;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
-        import com.example.wiseowlettracker.Entities.Subject;
-
-        import java.util.ArrayList;
+import com.example.wiseowlettracker.Entities.Subject;
+import java.util.ArrayList;
 
 public class SetupSubjects extends AppCompatActivity {
 
@@ -25,7 +23,7 @@ public class SetupSubjects extends AppCompatActivity {
     Spinner subList, yearList;
     ArrayList<String> subNames, yearNames;
     ArrayList<Subject> subjectList;
-    EditText editYear, editSubject, editTarget;
+    EditText editDailyTarget, editWeeklyTarget, editYear, editSubject, editTarget;
 
     SQLiteDatabase db;
     DatabaseHelper myDb;
@@ -96,7 +94,7 @@ public class SetupSubjects extends AppCompatActivity {
             subject.setSubjectName(ss.getString(1));
             subject.setLevel(ss.getString(2));
             subjectList.add(subject);
-        }
+        } // end while
 
         ss.close();
     }
@@ -118,8 +116,26 @@ public class SetupSubjects extends AppCompatActivity {
 
         for (int i = 0; i < subjectList.size(); i++) {
             subNames.add(subjectList.get(i).getSubjectName() + " / " + subjectList.get(i).getLevel());
-        }
-    }
+        } // end for
+    } // end obtainLists
+
+    public void addTargets(View view) {
+        DatabaseHelper myDb = new DatabaseHelper(this);
+        editDailyTarget = (EditText) findViewById(R.id.editDailyTarget);
+        String tempVal = editDailyTarget.getText().toString();
+        int dailyTarget = Integer.parseInt(tempVal);
+        editWeeklyTarget = (EditText) findViewById(R.id.editWeeklyTarget);
+        tempVal = editWeeklyTarget.getText().toString();
+        int weeklyTarget = Integer.parseInt(tempVal);
+
+        boolean isInserted = myDb.createStudyTarget(dailyTarget,weeklyTarget);
+
+        if (isInserted = true) {
+            Toast.makeText(SetupSubjects.this, "Targets are set up.", Toast.LENGTH_LONG).show();}
+        else
+            Toast.makeText(SetupSubjects.this, "Targets were not set up.", Toast.LENGTH_LONG).show();
+
+    } // end addTargets
 
     public void addSubject(View view) {
         DatabaseHelper myDb = new DatabaseHelper(this);
@@ -127,16 +143,15 @@ public class SetupSubjects extends AppCompatActivity {
         String tempVal = editTarget.getText().toString();
         int target = Integer.parseInt(tempVal);
 
+        boolean subInserted = myDb.createStudentSubject(sYear, subId, target);
 
-        boolean isInserted = myDb.insertSSY(sYear,subId,target);
-
-        if (isInserted = true) {
+        if (subInserted = true) {
             Toast.makeText(SetupSubjects.this, "Subject is set up.", Toast.LENGTH_LONG).show();
-            setContentView(R.layout.activity_setup_subjects);
+            //  setContentView(R.layout.activity_setup_subjects);
+        } else {
+            Toast.makeText(SetupSubjects.this, "Incorrect data.", Toast.LENGTH_LONG).show();
+            //setContentView(R.layout.activity_setup_subjects);}
         }
-        else {Toast.makeText(SetupSubjects.this, "Incorrect data.", Toast.LENGTH_LONG).show();
-            setContentView(R.layout.activity_setup_subjects);}
+    } // end addSubject
 
-    }
-
-}
+} // end setupSubjects
