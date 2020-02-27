@@ -54,10 +54,10 @@ public class Login extends AppCompatActivity {
                         Boolean checkPassword = db.checkPassword(Email,Password);
                         if (checkPassword) {
                             Toast.makeText(getApplicationContext(), "Login succesful", Toast.LENGTH_SHORT).show();
-                            Intent log = new Intent(Login.this, AddStudyLog.class);
-                            startActivity(log);
+                            db.close();
+                            startActivity(new Intent(Login.this, StudentActivity.class));
                         } else {
-                            Toast.makeText(getApplicationContext(), "Incorrect Password", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Incorrect Password, please retry.", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Toast.makeText(getApplicationContext(), "Log in failed", Toast.LENGTH_SHORT).show();

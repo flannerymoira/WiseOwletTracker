@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static long StudentId;
+    public static String StudentName;
 
    public DatabaseHelper(Context context) {
         super(context, "wiseOwlet2.db", null, 1);
@@ -48,26 +49,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //check if email is correct
     public boolean checkEmail(String email){
         SQLiteDatabase db=this.getReadableDatabase();
+
         Cursor ecursor = db.rawQuery("Select email from student where email=?", new String[]{email});
+
         if(ecursor.getCount()>0)
-            return false;
+            {ecursor.close();
+            return false;}
         else
-            return true;
+            {ecursor.close();
+            return true;}
     }
 
-    //check if Password is correct and get StudentId
+    //check if Password is correct and get StudentId and name
     public boolean checkPassword(String Email, String password) {
 
         SQLiteDatabase db=this.getReadableDatabase();
 
-        Cursor scursor = db.rawQuery("Select student_id, email, password from student where email=? and password=?", new String[]{Email, password});
+        Cursor studentCursor = db.rawQuery("Select student_id, first_name from student where email=? and password=?", new String[]{Email, password});
 
-        if (scursor.getCount()> 0) {
-            StudentId  = scursor.getInt(0);
-            scursor.close();
+        if (studentCursor.moveToFirst()) {
+            StudentId  = studentCursor.getLong(0);
+            StudentName  = studentCursor.getString(1);
+            db.close();
             return true;}
-        else {
-            scursor.close();
+        else { db.close();
             return false;
         }
     }

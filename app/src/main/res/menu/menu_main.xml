@@ -12,7 +12,12 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/item1"
-        android:icon="@drawable/stopwatch"
+        android:icon="@drawable/account"
+        android:title="@string/account"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/item2"
+        android:icon="@drawable/watch"
         android:title="@string/stopwatch"
         app:showAsAction="ifRoom" />
 </menu>
