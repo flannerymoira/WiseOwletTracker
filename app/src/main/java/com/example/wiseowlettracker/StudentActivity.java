@@ -15,7 +15,7 @@ import static com.example.wiseowlettracker.DatabaseHelper.StudentName;
 
 public class StudentActivity extends AppCompatActivity {
 
-    TextView txtName;
+    TextView txtName, txtMins;
     ImageButton btn_log;
     DatabaseHelper db;
 
@@ -23,16 +23,20 @@ public class StudentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
-        db = new DatabaseHelper(this);
+ //       db = new DatabaseHelper(this);
 
         txtName = findViewById(R.id.txtName);
         txtName.setText(StudentName + ".");
+
+        txtMins = findViewById(R.id.txtViewMins);
+        txtMins.setText("20 minutes");
+
         btn_log = findViewById(R.id.btn_log);
         btn_log.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent reg = new Intent(StudentActivity.this, AddStudyLog.class);
-                startActivity(reg);
+                Intent log = new Intent(StudentActivity.this, AddStudyLog.class);
+                startActivity(log);
             }
         });
     }

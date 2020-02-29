@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">Wise Owlet Tracker</string>
     <string name="welcome">Welcome back</string>
-    <string name="text1">You have done </string>
-    <string name="text2">minutes study this week.</string>
+    <string name="text1">You have completed</string>
+    <string name="text2">of study this week.</string>
     <string name="owlet">Owlet</string>
     <string name="Subjects">Choose Subject:</string>
+    <string name="study_type">Type of Study:</string>
     <string name="Year">Choose Year:</string>
     <string name="daily_target">Daily Target:</string>
     <string name="weekly_target">Weekly Target:</string>
@@ -42,4 +43,6 @@
     <string name="year6">Year 6</string>
     <string name="ty">Transition Year</string>
     <string name="study_log">Log Study</string>
+    <string name="time">Time Spent</string>
+    <string name="note">Add Note</string>
 </resources>

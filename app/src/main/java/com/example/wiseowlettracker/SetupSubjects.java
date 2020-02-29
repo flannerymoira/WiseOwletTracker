@@ -37,7 +37,7 @@ public class SetupSubjects extends AppCompatActivity {
         yearList = findViewById(R.id.yearSpinner);
 
         //Access to database
-        DatabaseOpenHelper conn = new DatabaseOpenHelper(this, "wiseOwlet.db", null, 1);
+        DatabaseOpenHelper conn = new DatabaseOpenHelper(this, "wiseOwlet2.db", null, 1);
         db = conn.getWritableDatabase();
 
         getSubjectList();

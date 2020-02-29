@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static long StudentId;
     public static String StudentName;
+    SQLiteDatabase db;
 
    public DatabaseHelper(Context context) {
         super(context, "wiseOwlet2.db", null, 1);
@@ -48,7 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //check if email is correct
     public boolean checkEmail(String email){
-        SQLiteDatabase db=this.getReadableDatabase();
+        db=this.getReadableDatabase();
 
         Cursor ecursor = db.rawQuery("Select email from student where email=?", new String[]{email});
 
@@ -63,7 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //check if Password is correct and get StudentId and name
     public boolean checkPassword(String Email, String password) {
 
-        SQLiteDatabase db=this.getReadableDatabase();
+        db=this.getReadableDatabase();
 
         Cursor studentCursor = db.rawQuery("Select student_id, first_name from student where email=? and password=?", new String[]{Email, password});
 
@@ -78,7 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean createStudyTarget(int daily_target, int weekly_target) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("student_id",StudentId);
         contentValues.put("daily_target",daily_target);
@@ -96,7 +97,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean createStudentSubject(String year, int subjectId, int target) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("student_id",StudentId);
         contentValues.put("subject_id",subjectId);
