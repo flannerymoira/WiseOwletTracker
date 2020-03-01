@@ -12,7 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
 
@@ -24,12 +26,13 @@ import java.util.ArrayList;
 import static com.example.wiseowlettracker.DatabaseHelper.StudentId;
 
 public class AddStudyLog extends AppCompatActivity {
-    public static int subId, studyId;
+    public static int SubjectId, StudyId;
     Spinner subList, typeOfStudy;
     ArrayList<String> subNames, studyType;
     ArrayList<Subject> subjectList;
     ArrayList<Study_Type> studyList;
     SQLiteDatabase ssDb;
+    EditText editTime, editNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +56,7 @@ public class AddStudyLog extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0) {
-                    subId = subjectList.get(position - 1).getSubjectId();
+                    SubjectId = subjectList.get(position - 1).getSubjectId();
                 }
             }
 
@@ -70,7 +73,7 @@ public class AddStudyLog extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0) {
-                    studyId = studyList.get(position -1).getStudyId();
+                    StudyId = studyList.get(position -1).getStudyId();
                 }
             }
 
@@ -151,6 +154,25 @@ public class AddStudyLog extends AppCompatActivity {
             studyType.add(studyList.get(a).getStudyType());
         }
     }
+
+    public void addStudyLog(View view) {
+        DatabaseHelper slDb = new DatabaseHelper(this);
+        editNote = (EditText) findViewById(R.id.editNote);
+        editTime = (EditText) findViewById(R.id.editTime);
+        String tempVal = editTime.getText().toString();
+        int time = Integer.parseInt(tempVal);
+
+        boolean logInserted = slDb.createStudyLog(editNote.getText().toString(), time);
+
+        if (logInserted = true) {
+            Toast.makeText(AddStudyLog.this, "Study log entry made.", Toast.LENGTH_LONG).show();
+            //  setContentView(R.layout.activity_setup_subjects);
+        } else {
+            Toast.makeText(AddStudyLog.this, "Incorrect data.", Toast.LENGTH_LONG).show();
+            //setContentView(R.layout.activity_setup_subjects);}
+        }
+    } // end addSubject
+
 
 }
 

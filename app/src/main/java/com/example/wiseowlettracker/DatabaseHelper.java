@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import static com.example.wiseowlettracker.AddStudyLog.StudyId;
+import static com.example.wiseowlettracker.AddStudyLog.SubjectId;
+
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static long StudentId;
@@ -114,7 +117,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
 
     }
+    public boolean createStudyLog(String note, int time_spent) {
+        int ssy_id = 0;
+        db = this.getWritableDatabase();
+        String sid = Long.toString(StudentId);
+        String subid = Long.toString(SubjectId);
 
+        Cursor ssyCursor =  db.rawQuery("Select ssy_id from student_subject where student_id=? and subject_id=?", new String[]{sid, subid});
+
+        if (ssyCursor.moveToFirst()) {
+            ssy_id  = ssyCursor.getInt(0);
+        }
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("ssy_id",ssy_id);
+        contentValues.put("study_id",StudyId);
+        contentValues.put("note",note);
+        contentValues.put("time_spent",time_spent);
+
+        long result = db.insert("study_log", "ssy_id, " +
+                "study_id, note, time_spent", contentValues);
+
+        db.close();
+        if(result==-1)
+            return false;
+        else
+            return true;
+
+    }
 }
 
 

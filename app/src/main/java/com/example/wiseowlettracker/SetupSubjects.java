@@ -23,7 +23,7 @@ public class SetupSubjects extends AppCompatActivity {
     Spinner subList, yearList;
     ArrayList<String> subNames, yearNames;
     ArrayList<Subject> subjectList;
-    EditText editDailyTarget, editWeeklyTarget, editYear, editSubject, editTarget;
+    EditText editDailyTarget, editWeeklyTarget, editTarget;
 
     SQLiteDatabase db;
     DatabaseHelper myDb;
