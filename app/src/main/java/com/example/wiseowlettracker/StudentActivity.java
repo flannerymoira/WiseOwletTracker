@@ -55,7 +55,7 @@ public class StudentActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (item.getItemId()) {
             case R.id.item1:
-                startActivity(new Intent(StudentActivity.this, StudyHistory.class));
+                startActivity(new Intent(StudentActivity.this, StudentAccount.class));
                 return true;
             case R.id.item2:
                 startActivity(new Intent(StudentActivity.this, StopWatch.class));

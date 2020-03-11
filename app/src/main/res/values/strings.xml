@@ -45,4 +45,5 @@
     <string name="study_log">Log Study</string>
     <string name="time">Time Spent</string>
     <string name="note">Add Note</string>
+    <string name="personaldetails">Personal Details</string>
 </resources>

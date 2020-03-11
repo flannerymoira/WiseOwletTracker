@@ -97,7 +97,7 @@ public class AddStudyLog extends AppCompatActivity {
 
         int id = item.getItemId();
         switch (item.getItemId()) {
-            case R.id.item1:
+            case R.id.item2:
                 startActivity(new Intent(AddStudyLog.this, StopWatch.class));
                 return true;
             default:

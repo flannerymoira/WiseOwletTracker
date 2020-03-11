@@ -12,7 +12,7 @@ import static com.example.wiseowlettracker.AddStudyLog.SubjectId;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static long StudentId;
-    public static String StudentName;
+    public static String StudentName, StudentFullName, StudentPhone, StudentEmail;
     SQLiteDatabase db;
 
    public DatabaseHelper(Context context) {
@@ -69,11 +69,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db=this.getReadableDatabase();
 
-        Cursor studentCursor = db.rawQuery("Select student_id, first_name from student where email=? and password=?", new String[]{Email, password});
+        Cursor studentCursor = db.rawQuery("Select student_id, first_name, surname, phone from student where email=? and password=?", new String[]{Email, password});
 
         if (studentCursor.moveToFirst()) {
             StudentId  = studentCursor.getLong(0);
             StudentName  = studentCursor.getString(1);
+            StudentFullName  = studentCursor.getString(1) + " " + studentCursor.getString(2);
+            StudentPhone = studentCursor.getString(3);
+            StudentEmail = Email;
             db.close();
             return true;}
         else { db.close();
