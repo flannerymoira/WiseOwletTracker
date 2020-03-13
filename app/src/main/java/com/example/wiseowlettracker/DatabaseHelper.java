@@ -120,6 +120,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
 
     }
+
     public boolean createStudyLog(String note, int time_spent) {
         int ssy_id = 0;
         db = this.getWritableDatabase();
@@ -148,6 +149,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
 
     }
+
 }
 
 
