@@ -105,7 +105,7 @@ public class AddStudyLog extends AppCompatActivity {
         }
     }
 
-    //method to get array of subject for a student  from table
+    //method to get array of subjects for a student from student_subject table
     private void getStudentSubjectList() {
         Subject subject;
         subjectList = new ArrayList<Subject>();

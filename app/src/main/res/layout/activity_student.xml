@@ -68,20 +68,37 @@
 
     <ImageButton
         android:id="@+id/btn_log"
-        android:layout_width="68dp"
-        android:layout_height="78dp"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="164dp"
-        android:layout_marginLeft="164dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
         android:layout_marginBottom="16dp"
-        android:background="@color/Bluecolor"
         android:contentDescription="@string/study_log"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textMinsCompleted"
-        app:layout_constraintVertical_bias="0.388"
+        app:layout_constraintVertical_bias="0.464"
         app:srcCompat="@drawable/log_icon" />
+
+    <ImageButton
+        android:id="@+id/btn_report"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="224dp"
+        android:layout_marginLeft="224dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/study_log"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textMinsCompleted"
+        app:layout_constraintVertical_bias="0.464"
+        app:srcCompat="@drawable/report" />
 
     <TextView
         android:id="@+id/txtViewMins"

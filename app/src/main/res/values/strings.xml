@@ -46,4 +46,6 @@
     <string name="time">Time Spent</string>
     <string name="note">Add Note</string>
     <string name="personaldetails">Personal Details</string>
+    <string name="update_phone">Update Phone</string>
+    <string name="update_target">Update Target</string>
 </resources>

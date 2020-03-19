@@ -80,7 +80,7 @@ public class SetupSubjects extends AppCompatActivity {
 
     }
 
-    //method to get array of objects from table
+    //method to get array of subjects
     private void getSubjectList() {
 
         Subject subject;
