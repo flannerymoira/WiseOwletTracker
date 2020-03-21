@@ -3,22 +3,26 @@ package com.example.wiseowlettracker;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.wiseowlettracker.Entities.Subject;
 import com.example.wiseowlettracker.R;
 
 import java.util.ArrayList;
 
+import static com.example.wiseowlettracker.AddStudyLog.SubjectId;
 import static com.example.wiseowlettracker.DatabaseHelper.StudentEmail;
 import static com.example.wiseowlettracker.DatabaseHelper.StudentId;
 import static com.example.wiseowlettracker.DatabaseHelper.StudentPhone;
@@ -28,10 +32,11 @@ public class StudentAccount extends AppCompatActivity {
     Spinner subList;
     ArrayList<String> subNames;
     ImageView imgPhone, imgEmail;
-    EditText txtName, txtPhone, txtEmail, txtDailyTarget, txtWeeklyTarget;
+    EditText txtPhone, txtEmail, txtDailyTarget, txtWeeklyTarget;
     SQLiteDatabase saDb;
     int StudentDailyTarget, StudentWeeklyTarget;
-    String tempVal;
+    String tmpDailyVal, tmpWeeklyVal;
+    Button btn_upd_phone, btn_upd_target;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +61,12 @@ public class StudentAccount extends AppCompatActivity {
         getStudentDetails();
 
         txtDailyTarget = findViewById(R.id.editDailyTarget);
-        tempVal = Integer.toString(StudentDailyTarget);
-        txtDailyTarget.setText(tempVal);
+        tmpDailyVal = Integer.toString(StudentDailyTarget);
+        txtDailyTarget.setText(tmpDailyVal);
 
         txtWeeklyTarget = findViewById(R.id.editWeeklyTarget);
-        tempVal = Integer.toString(StudentWeeklyTarget);
-        txtWeeklyTarget.setText(tempVal);
+        tmpWeeklyVal = Integer.toString(StudentWeeklyTarget);
+        txtWeeklyTarget.setText(tmpWeeklyVal);
 
         getStudentSubjectList();
 
@@ -81,7 +86,40 @@ public class StudentAccount extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+        btn_upd_phone = findViewById(R.id.btnUpdatePhone);
+
+        btn_upd_phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String phone_S = txtPhone.getText().toString();
+                Boolean updatedPhone = updatePhone(phone_S);
+                if (updatedPhone)
+                    Toast.makeText(getApplicationContext(), "Update phone is succesful", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getApplicationContext(), "Incorrect Password, please retry.", Toast.LENGTH_SHORT).show();
+            }});
+
+        btn_upd_target = findViewById(R.id.btnUpdateTarget);
+
+        btn_upd_target.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String dailyVal = txtDailyTarget.getText().toString();
+                String weeklyVal = txtWeeklyTarget.getText().toString();
+                Boolean updatedTarget = updateTargets(dailyVal, weeklyVal);
+                if (updatedTarget) {
+                    Toast.makeText(getApplicationContext(), "Update targets succesful", Toast.LENGTH_SHORT).show();
+
+                    StudentDailyTarget = Integer.parseInt(dailyVal);
+                    StudentWeeklyTarget = Integer.parseInt(weeklyVal);
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "Incorrect Password, please retry.", Toast.LENGTH_SHORT).show();
+            }});
+
     }
+
 
     //get targets for the Student
     public void getStudentDetails() {
@@ -112,7 +150,34 @@ public class StudentAccount extends AppCompatActivity {
         }
 
         stuSubCursor.close();
-
     }
 
+    //update phone on student table
+    public boolean updatePhone(String phone) {
+        String sid = Long.toString(StudentId);
+
+        Cursor updPhCursor =  saDb.rawQuery("update student set phone = ?  where student_id=?", new String[]{phone, sid});
+
+        StudentPhone = phone;
+        if(updPhCursor.getCount()>0)
+        {updPhCursor.close();
+            return false;}
+        else
+        {updPhCursor.close();
+            return true;}
+    }
+
+    //update targets on study_target table
+    public boolean updateTargets(String daily_target, String weekly_target) {
+        String temp = Long.toString(StudentId);
+
+        Cursor updTargCursor =  saDb.rawQuery("update study_target set daily_target = ?, weekly_target = ? where student_id = ?", new String[]{daily_target, weekly_target, temp});
+
+        if(updTargCursor.getCount()>0)
+        {updTargCursor.close();
+            return false;}
+        else
+        {updTargCursor.close();
+            return true;}
+    }
 }

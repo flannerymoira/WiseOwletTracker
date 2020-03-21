@@ -16,7 +16,7 @@ public class Login extends AppCompatActivity {
     DatabaseHelper db;
     EditText txtemail, txtpass;
     TextView txtlogin, txtno_acc;
-    Button btn_login, btn_reg;
+    Button btn_reg;
     ImageButton image_login;
 
     @Override

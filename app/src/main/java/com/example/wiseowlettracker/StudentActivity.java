@@ -16,7 +16,7 @@ import static com.example.wiseowlettracker.DatabaseHelper.StudentName;
 public class StudentActivity extends AppCompatActivity {
 
     TextView txtName, txtMins;
-    ImageButton btn_log;
+    ImageButton btn_log, btn_rep;
     DatabaseHelper db;
 
     @Override
@@ -32,11 +32,20 @@ public class StudentActivity extends AppCompatActivity {
         txtMins.setText("20 minutes");
 
         btn_log = findViewById(R.id.btn_log);
+
         btn_log.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent log = new Intent(StudentActivity.this, AddStudyLog.class);
                 startActivity(log);
+            }
+        });
+
+        btn_rep = findViewById(R.id.btn_report);
+        btn_rep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(StudentActivity.this, StudyHistory.class));
             }
         });
     }
