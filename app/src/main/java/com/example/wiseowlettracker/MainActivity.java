@@ -58,20 +58,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String getQuote() {
+
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
         String todaysDate = df.format(today);
 
         //select quote from table quotes
-        Cursor tcursor = db.rawQuery("SELECT QUOTE,AUTHOR FROM QUOTE WHERE DISPLAY_DATE = ?", new String[]{todaysDate});
+        Cursor tcursor = db.rawQuery("select quote, author from quote where display_date = ?", new String[]{todaysDate});
         StringBuffer buffer = new StringBuffer();
 
         while (tcursor.moveToNext()) {
             String quote = tcursor.getString(0);
             String author = tcursor.getString(1);
             buffer.append(quote + "\n" + author);
-            tcursor.close();
         }
 
+        tcursor.close();
         return buffer.toString();
     }
 

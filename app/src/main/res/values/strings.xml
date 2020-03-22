@@ -2,7 +2,7 @@
     <string name="app_name">Wise Owlet Tracker</string>
     <string name="welcome">Welcome back</string>
     <string name="text1">You have completed</string>
-    <string name="text2">of study this week.</string>
+    <string name="text2">minutes of study this week.</string>
     <string name="owlet">Owlet</string>
     <string name="Subjects">Choose Subject:</string>
     <string name="study_type">Type of Study:</string>

@@ -77,7 +77,6 @@ public class SetupSubjects extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
     }
 
     //method to get array of subjects

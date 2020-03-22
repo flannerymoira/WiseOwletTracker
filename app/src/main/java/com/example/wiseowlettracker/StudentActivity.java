@@ -3,33 +3,45 @@ package com.example.wiseowlettracker;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import static com.example.wiseowlettracker.DatabaseHelper.StudentId;
 import static com.example.wiseowlettracker.DatabaseHelper.StudentName;
 
 public class StudentActivity extends AppCompatActivity {
 
     TextView txtName, txtMins;
     ImageButton btn_log, btn_rep;
-    DatabaseHelper db;
+    SQLiteDatabase sumDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
- //       db = new DatabaseHelper(this);
+
+        //Access to database
+        DatabaseOpenHelper firstConn = new DatabaseOpenHelper(this, "wiseOwlet2.db", null, 1);
+        sumDb = firstConn.getReadableDatabase();
 
         txtName = findViewById(R.id.txtName);
         txtName.setText(StudentName + ".");
 
         txtMins = findViewById(R.id.txtViewMins);
-        txtMins.setText("20 minutes");
+        int tmpVal =  sumStudy();
+        String tmpTotal = Integer.toString(tmpVal);
+        txtMins.setText(tmpTotal);
+        sumDb.close();
 
         btn_log = findViewById(R.id.btn_log);
 
@@ -74,4 +86,25 @@ public class StudentActivity extends AppCompatActivity {
         }
     }
 
+    //Get total of time studied in the last week
+    public int sumStudy() {
+        String sid = Long.toString(StudentId);
+        int totalStudy = 0;
+
+        SimpleDateFormat dl = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -7);
+        Date lastweek = cal.getTime();
+        String fromDate = dl.format(lastweek);
+
+        Cursor sumStudyCursor =  sumDb.rawQuery("select sum(time_spent) from study_log sl, student_subject ss where" +
+                " ss.ssy_id = sl.ssy_id and ss.student_id = ? and sl.entry_date > ?", new String[]{sid, fromDate});
+
+        if (sumStudyCursor.moveToNext())
+        { totalStudy = sumStudyCursor.getInt(0); }
+
+        sumStudyCursor.close();
+        return totalStudy;
+    }
 }
+
