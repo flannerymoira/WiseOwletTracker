@@ -28,20 +28,21 @@
 
     <EditText
         android:id="@+id/txtEmail"
-        android:layout_width="193dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="548dp"
+        android:layout_width="206dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="414dp"
         android:backgroundTint="@color/Transparent"
         android:ems="10"
         android:hint="@string/email"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnUpdateSubject"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/img_email" />
+        app:layout_constraintStart_toEndOf="@+id/txtPersonalDetails"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/img_phone"
@@ -83,17 +84,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="105dp"
-        android:layout_marginRight="105dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginTop="112dp"
+        android:layout_marginEnd="77dp"
+        android:layout_marginRight="77dp"
+        android:layout_marginBottom="479dp"
         android:text="@string/personaldetails"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/img_email"
+        app:layout_constraintBottom_toTopOf="@+id/editSubjectTarget"
         app:layout_constraintEnd_toStartOf="@+id/txtEmail"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txtEmail" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.329" />
 
     <EditText
         android:id="@+id/editDailyTarget"
@@ -143,7 +145,6 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="230dp"
-        android:layout_marginRight="230dp"
         android:backgroundTint="@color/Transparent"
         android:ems="10"
         android:importantForAutofill="no"
@@ -164,7 +165,7 @@
         android:layout_marginLeft="100dp"
         android:layout_marginTop="56dp"
         android:spinnerMode="dialog"
-        android:textSize="14sp"
+        android:textSize="10sp"
         app:layout_constraintEnd_toStartOf="@+id/editWeeklyTarget"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -172,28 +173,60 @@
 
     <Button
         android:id="@+id/btnUpdatePhone"
-        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="16dp"
         android:text="@string/update_phone"
         android:textColor="@color/colorPrimary"
-        android:textSize="14sp"
-        android:textStyle="bold"
+        android:textSize="12sp"
+        android:textStyle="normal|bold"
         app:layout_constraintStart_toStartOf="@+id/txtPhone"
         app:layout_constraintTop_toBottomOf="@+id/txtPhone" />
 
     <Button
         android:id="@+id/btnUpdateTarget"
-        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="42dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="75dp"
         android:text="@string/update_target"
         android:textColor="@color/colorPrimary"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/btnUpdatePhone"
         app:layout_constraintTop_toBottomOf="@+id/btnUpdatePhone" />
+
+    <Button
+        android:id="@+id/btnUpdateSubject"
+        android:layout_width="179dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="160dp"
+        android:text="@string/update_subject"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp"
+        android:textStyle="normal|bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subSpinner" />
+
+    <EditText
+        android:id="@+id/editSubjectTarget"
+        android:layout_width="118dp"
+        android:layout_height="39dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:ems="10"
+        android:hint="@string/Target"
+        android:inputType="textPersonName"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnUpdateSubject"
+        app:layout_constraintHorizontal_bias="0.826"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtWeekly"
+        app:layout_constraintVertical_bias="0.44" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -69,7 +69,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db=this.getReadableDatabase();
 
-        Cursor studentCursor = db.rawQuery("Select student_id, first_name, surname, phone from student where email=? and password=?", new String[]{Email, password});
+        Cursor studentCursor = db.rawQuery("select student_id, first_name, surname, phone from student where email=? and password=?", new String[]{Email, password});
 
         if (studentCursor.moveToFirst()) {
             StudentId  = studentCursor.getLong(0);
@@ -127,7 +127,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String sid = Long.toString(StudentId);
         String subid = Long.toString(SubjectId);
 
-        Cursor ssyCursor =  db.rawQuery("Select ssy_id from student_subject where student_id=? and subject_id=?", new String[]{sid, subid});
+        Cursor ssyCursor =  db.rawQuery("select ssy_id from student_subject where student_id=? and subject_id=?", new String[]{sid, subid});
 
         if (ssyCursor.moveToFirst()) {
             ssy_id  = ssyCursor.getInt(0);
