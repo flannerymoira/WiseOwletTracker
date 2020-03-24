@@ -18,11 +18,12 @@ import java.util.Date;
 
 import static com.example.wiseowlettracker.DatabaseHelper.StudentId;
 import static com.example.wiseowlettracker.DatabaseHelper.StudentName;
+import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
 
 public class StudentActivity extends AppCompatActivity {
 
     TextView txtName, txtMins;
-    ImageButton btn_log, btn_rep;
+    ImageButton btn_log, btn_result, btn_rep;
     SQLiteDatabase sumDb;
 
     @Override
@@ -31,7 +32,7 @@ public class StudentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_student);
 
         //Access to database
-        DatabaseOpenHelper firstConn = new DatabaseOpenHelper(this, "wiseOwlet2.db", null, 1);
+        DatabaseOpenHelper firstConn = new DatabaseOpenHelper(this, DATABASE_NAME, null, 1);
         sumDb = firstConn.getReadableDatabase();
 
         txtName = findViewById(R.id.txtName);
@@ -48,8 +49,16 @@ public class StudentActivity extends AppCompatActivity {
         btn_log.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent log = new Intent(StudentActivity.this, AddStudyLog.class);
-                startActivity(log);
+                startActivity(new Intent(StudentActivity.this, AddStudyLog.class));
+            }
+        });
+
+        btn_result = findViewById(R.id.btn_result);
+
+        btn_result.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(StudentActivity.this, StudentResults.class));
             }
         });
 

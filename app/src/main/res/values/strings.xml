@@ -43,10 +43,12 @@
     <string name="year6">Year 6</string>
     <string name="ty">Transition Year</string>
     <string name="study_log">Log Study</string>
+    <string name="enter_result">Enter Result</string>
     <string name="time">Time Spent</string>
     <string name="note">Add Note</string>
     <string name="personaldetails">Personal Details</string>
     <string name="update_phone">Update Phone</string>
     <string name="update_target">Update Target</string>
     <string name="update_subject">Update Subject Target</string>
+    <string name="exam">Exam</string>
 </resources>

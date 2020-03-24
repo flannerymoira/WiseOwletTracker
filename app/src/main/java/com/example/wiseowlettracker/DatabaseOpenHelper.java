@@ -6,9 +6,10 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
+import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
+
 
 public class DatabaseOpenHelper extends SQLiteAssetHelper {
-    private static final String DATABASE_NAME = "wiseOwlet2.db";
     private static final int DATABASE_VERSION = 1;
 
 

@@ -24,6 +24,7 @@ import com.example.wiseowlettracker.Entities.Subject;
 import java.util.ArrayList;
 
 import static com.example.wiseowlettracker.DatabaseHelper.StudentId;
+import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
 
 public class AddStudyLog extends AppCompatActivity {
     public static int SubjectId, StudyId;
@@ -42,7 +43,7 @@ public class AddStudyLog extends AppCompatActivity {
         typeOfStudy = findViewById(R.id.studySpinner);
 
         //Access to database
-        DatabaseOpenHelper myConn = new DatabaseOpenHelper(this, "wiseOwlet2.db", null, 1);
+        DatabaseOpenHelper myConn = new DatabaseOpenHelper(this,DATABASE_NAME, null, 1);
         ssDb = myConn.getWritableDatabase();
 
         getStudentSubjectList();

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import static com.example.wiseowlettracker.DatabaseHelper.StudentEmail;
 import static com.example.wiseowlettracker.DatabaseHelper.StudentId;
 import static com.example.wiseowlettracker.DatabaseHelper.StudentPhone;
+import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
 
 public class StudentAccount extends AppCompatActivity {
     public static int SubjectId;
@@ -43,7 +44,7 @@ public class StudentAccount extends AppCompatActivity {
         setContentView(R.layout.activity_student_account);
 
         //Access to database
-        DatabaseOpenHelper nextConn = new DatabaseOpenHelper(this, "wiseOwlet2.db", null, 1);
+        DatabaseOpenHelper nextConn = new DatabaseOpenHelper(this, DATABASE_NAME, null, 1);
         saDb = nextConn.getWritableDatabase();
 
         imgPhone = findViewById(R.id.img_phone);

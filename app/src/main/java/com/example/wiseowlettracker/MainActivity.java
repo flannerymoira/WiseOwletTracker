@@ -17,7 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-
+    public static String DATABASE_NAME = "wiseOwlet.db";
     SQLiteDatabase db;
     TextView txtQuote;
     Date today = Calendar.getInstance().getTime();
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         //Access to database
-        DatabaseOpenHelper conn = new DatabaseOpenHelper(this, "wiseOwlet2.db", null, 1);
+        DatabaseOpenHelper conn = new DatabaseOpenHelper(this, DATABASE_NAME, null, 1);
         db = conn.getWritableDatabase();
 
         super.onCreate(savedInstanceState);

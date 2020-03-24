@@ -18,6 +18,7 @@ public class Login extends AppCompatActivity {
     TextView txtlogin, txtno_acc;
     Button btn_reg;
     ImageButton image_login;
+    int retry_flag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,27 +48,34 @@ public class Login extends AppCompatActivity {
                 String Email = txtemail.getText().toString();
                 String Password = txtpass.getText().toString();
 
-                if (Email.equals("") || Password.equals("")) {
-                    Toast.makeText(getApplicationContext(), "Fields are empty", Toast.LENGTH_SHORT).show();
+                if (retry_flag > 2) {
+                    Toast.makeText(getApplicationContext(), "Sorry you have tried to log in the max 3 times.", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Boolean checkEmail = db.checkEmail(Email);
-                    if (!checkEmail) {
-                        Boolean checkPassword = db.checkPassword(Email,Password);
-                        if (checkPassword) {
-                            Toast.makeText(getApplicationContext(), "Login succesful", Toast.LENGTH_SHORT).show();
-                            db.close();
-                            startActivity(new Intent(Login.this, StudentActivity.class));
+                    if (Email.equals("") || Password.equals("")) {
+                        Toast.makeText(getApplicationContext(), "Fields are empty", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Boolean checkEmail = db.checkEmail(Email);
+                        if (!checkEmail) {
+                            Boolean checkPassword = db.checkPassword(Email, Password);
+                            if (checkPassword) {
+                                Toast.makeText(getApplicationContext(), "Login succesful", Toast.LENGTH_SHORT).show();
+                                db.close();
+                                startActivity(new Intent(Login.this, StudentActivity.class));
+                            } else {
+                                retry_flag = retry_flag + 1;
+                                Toast.makeText(getApplicationContext(), "Incorrect Password, please retry.", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
-                            Toast.makeText(getApplicationContext(), "Incorrect Password, please retry.", Toast.LENGTH_SHORT).show();
+                            retry_flag = retry_flag + 1;
+                            Toast.makeText(getApplicationContext(), "Log in failed", Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Log in failed", Toast.LENGTH_SHORT).show();
                     }
                 }
-            }
-        });
+            } // end onClick
+        }); // end setOnClickListener
 
+    } // end onCreate
 
-    }
 }

@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.example.wiseowlettracker.Entities.Subject;
 import java.util.ArrayList;
 
+import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
+
 public class SetupSubjects extends AppCompatActivity {
 
     public static int subId;
@@ -37,7 +39,7 @@ public class SetupSubjects extends AppCompatActivity {
         yearList = findViewById(R.id.yearSpinner);
 
         //Access to database
-        DatabaseOpenHelper conn = new DatabaseOpenHelper(this, "wiseOwlet2.db", null, 1);
+        DatabaseOpenHelper conn = new DatabaseOpenHelper(this,DATABASE_NAME, null, 1);
         db = conn.getWritableDatabase();
 
         getSubjectList();

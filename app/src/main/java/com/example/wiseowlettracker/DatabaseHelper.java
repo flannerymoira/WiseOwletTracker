@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import static com.example.wiseowlettracker.AddStudyLog.StudyId;
 import static com.example.wiseowlettracker.AddStudyLog.SubjectId;
+import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -16,7 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     SQLiteDatabase db;
 
    public DatabaseHelper(Context context) {
-        super(context, "wiseOwlet2.db", null, 1);
+        super(context, DATABASE_NAME, null, 1);
     }
 
     @Override
@@ -54,7 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean checkEmail(String email){
         db=this.getReadableDatabase();
 
-        Cursor ecursor = db.rawQuery("Select email from student where email=?", new String[]{email});
+        Cursor ecursor = db.rawQuery("select email from student where not account_locked and email=?", new String[]{email});
 
         if(ecursor.getCount()>0)
             {ecursor.close();
