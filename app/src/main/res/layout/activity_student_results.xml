@@ -57,4 +57,38 @@
         app:layout_constraintStart_toStartOf="@+id/txtExam"
         app:layout_constraintTop_toBottomOf="@+id/txtExam" />
 
+    <EditText
+        android:id="@+id/editResult"
+        android:layout_width="130dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="64dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/exam_result"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/btn_add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.298"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/examSpinner"
+        app:layout_constraintVertical_bias="0.0"
+        tools:targetApi="o" />
+
+    <Button
+        android:id="@+id/btn_add_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
+        android:layout_marginLeft="76dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="145dp"
+        android:text="@string/add_result"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editResult" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

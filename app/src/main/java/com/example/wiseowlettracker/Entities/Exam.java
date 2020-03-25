@@ -12,7 +12,7 @@ public class Exam {
         return exam_id;
     }
 
-    public void setExamId(int study_id) {
+    public void setExamId(int exam_id) {
         this.exam_id = exam_id;
     }
 
@@ -28,7 +28,7 @@ public class Exam {
         return year;
     }
 
-    public void setYear(String exam_name) {
+    public void setYear(String year) {
         this.year = year;
     }
 

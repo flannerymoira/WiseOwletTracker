@@ -2,15 +2,20 @@ package com.example.wiseowlettracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.wiseowlettracker.Entities.Exam;
+import com.example.wiseowlettracker.Entities.Student_Subject;
 import com.example.wiseowlettracker.Entities.Study_Type;
 import com.example.wiseowlettracker.Entities.Subject;
 
@@ -18,14 +23,17 @@ import java.util.ArrayList;
 
 import static com.example.wiseowlettracker.DatabaseHelper.StudentId;
 import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
+import static com.example.wiseowlettracker.StudentAccount.ssyId;
 
 public class StudentResults extends AppCompatActivity {
-    public static int SubjectId, ExamId;
+    public static int ExamId;
     Spinner subList, examNameList;
-    ArrayList<Subject> subjectList;
+    ArrayList<Student_Subject> StudentSubjectList;
     SQLiteDatabase srDb;
     ArrayList<String> subNames, examType;
     ArrayList<Exam> examList;
+    EditText editResult;
+    Button btn_add_result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +57,7 @@ public class StudentResults extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0) {
-                    SubjectId = subjectList.get(position - 1).getSubjectId();
+                    ssyId = StudentSubjectList.get(position - 1).getSsy_Id();
                 }
             }
 
@@ -74,38 +82,54 @@ public class StudentResults extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+        btn_add_result = findViewById(R.id.btn_add_result);
+
+        btn_add_result.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editResult = findViewById(R.id.editResult);
+                String exam_res = editResult.getText().toString();
+                Boolean addResult = createResult(exam_res);
+                if (addResult)
+                    Toast.makeText(getApplicationContext(), "Added result successfully.", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getApplicationContext(), "Did not add, please retry.", Toast.LENGTH_SHORT).show();
+            }});
     }
 
     //method to get array of subjects for a student from student_subject table
     private void getStudentSubjectList() {
-        Subject subject;
-        subjectList = new ArrayList<Subject>();
+        Student_Subject student_subject;
         String sid = Long.toString(StudentId);
+        StudentSubjectList = new ArrayList<Student_Subject>();
 
-        Cursor studentSubject = srDb.rawQuery("SELECT S.* FROM STUDENT_SUBJECT SS, SUBJECT S" +
+        Cursor studentSubject = srDb.rawQuery("SELECT S.SUBJECT_NAME, SS.SSY_ID, SS.STUDENT_ID FROM STUDENT_SUBJECT SS, SUBJECT S" +
                 " WHERE SS.SUBJECT_ID = S.SUBJECT_ID AND SS.STUDENT_ID = ?", new String[]{sid});
-
-        while (studentSubject.moveToNext()) {
-            subject = new Subject();
-            subject.setSubjectId(studentSubject.getInt(0));
-            subject.setSubjectName(studentSubject.getString(1));
-            subject.setLevel(studentSubject.getString(2));
-            subjectList.add(subject);
-        } // end while
-
-        studentSubject.close();
 
         subNames = new ArrayList<String>();
         subNames.add("(Select Subject )");
 
-        for (int i = 0; i < subjectList.size(); i++) {
-            subNames.add(subjectList.get(i).getSubjectName());
-        }
+        while (studentSubject.moveToNext()) {
+            student_subject = new Student_Subject();
+            student_subject.setSsy_Id(studentSubject.getInt(1));
+            student_subject.setStudentId(studentSubject.getInt(2));
+            StudentSubjectList.add(student_subject);
+
+            subNames.add(studentSubject.getString(0));
+
+        } // end while
+
+        studentSubject.close();
+
     }
 
     private void getExamList() {
         Exam exam;
         examList = new ArrayList<Exam>();
+
+        examType = new ArrayList<String>();
+        examType.add("(Select Exam )");
 
         Cursor examCursor = srDb.rawQuery("select * from exam ",null);
 
@@ -113,17 +137,27 @@ public class StudentResults extends AppCompatActivity {
             exam = new Exam();
             exam.setExamId(examCursor.getInt(0));
             exam.setExamName(examCursor.getString(1));
+            exam.setYear(examCursor.getString(2));
             examList.add(exam);
+
+            examType.add(exam.getExamName());
         } // end while
 
         examCursor.close();
-
-        examType = new ArrayList<String>();
-        examType.add("(Select Exam )");
-
-        for (int a = 0; a < examList.size(); a++) {
-            examType.add(examList.get(a).getExamName());
-        }
     }
+    //update subject target on student_subject table
+    public boolean createResult(String exam_res) {
+        ContentValues contentValues = new ContentValues();
 
+        contentValues.put("ssy_id",ssyId);
+        contentValues.put("exam_id", ExamId);
+        contentValues.put("achieved_mark",exam_res);
+
+        long ins = srDb.insert("exam_result", null, contentValues);
+
+        if(ins==-1)
+        {return false;}
+        else
+            return true;
+    }
 }
