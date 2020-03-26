@@ -5,17 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import static com.example.wiseowlettracker.DatabaseHelper.StudentEmail;
 import static com.example.wiseowlettracker.DatabaseHelper.StudentId;
 import static com.example.wiseowlettracker.DatabaseHelper.StudentName;
 import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
@@ -69,6 +73,13 @@ public class StudentActivity extends AppCompatActivity {
                 startActivity(new Intent(StudentActivity.this, StudyHistory.class));
             }
         });
+
+        Calendar c = Calendar.getInstance();
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        if (dayOfWeek == 2) {
+            // Send Weekly email
+            sendEmail();
+        }
     }
 
     @Override
@@ -114,6 +125,28 @@ public class StudentActivity extends AppCompatActivity {
 
         sumStudyCursor.close();
         return totalStudy;
+    }
+
+    public void sendEmail() {
+        Log.i("Send email", "");
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.setType("text/plain");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, StudentEmail);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Wise Owlet Tracker Weekly Report");
+        emailIntent.putExtra(Intent.EXTRA_TEXT   , "Hello, " + StudentName + "." );
+
+        try {
+            if (emailIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(emailIntent);
+            }
+//            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+//            finish();
+            Log.i("Finished sending email", "");
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(StudentActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
+        }
     }
 }
 

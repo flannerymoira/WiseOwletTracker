@@ -49,6 +49,7 @@ public class Login extends AppCompatActivity {
                 String Password = txtpass.getText().toString();
 
                 if (retry_flag > 2) {
+                    Boolean  lock = db.setAccountLocked(Email);
                     Toast.makeText(getApplicationContext(), "Sorry you have tried to log in the max 3 times.", Toast.LENGTH_SHORT).show();
                 }
                 else {

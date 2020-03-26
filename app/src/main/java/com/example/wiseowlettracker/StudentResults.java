@@ -145,7 +145,7 @@ public class StudentResults extends AppCompatActivity {
 
         examCursor.close();
     }
-    //update subject target on student_subject table
+    //add exam result
     public boolean createResult(String exam_res) {
         ContentValues contentValues = new ContentValues();
 

@@ -85,6 +85,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    // set account to locked
+    public Boolean setAccountLocked(String Email) {
+        db=this.getWritableDatabase();
+
+        Cursor setLockCursor =  db.rawQuery("update student set account_locked = 1  where email = ?", new String[]{Email});
+
+        if(setLockCursor .getCount()>0)
+        {  db.close();;
+            return false;}
+        else
+        {  db.close();
+            return true;}
+
+    }
+
     public boolean createStudyTarget(int daily_target, int weekly_target) {
         db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
