@@ -16,7 +16,7 @@ public class Login extends AppCompatActivity {
     DatabaseHelper db;
     EditText txtemail, txtpass;
     TextView txtlogin, txtno_acc;
-    Button btn_reg;
+    Button btn_reg, btn_reset;
     ImageButton image_login;
     int retry_flag = 0;
 
@@ -36,6 +36,15 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent reg = new Intent(Login.this, StudentRegistration.class);
+                startActivity(reg);
+            }
+        });
+
+        btn_reset = findViewById(R.id.btn_reset);
+        btn_reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent reg = new Intent(Login.this, ResetPassword.class);
                 startActivity(reg);
             }
         });
@@ -61,7 +70,7 @@ public class Login extends AppCompatActivity {
                         if (!checkEmail) {
                             Boolean checkPassword = db.checkPassword(Email, Password);
                             if (checkPassword) {
-                                Toast.makeText(getApplicationContext(), "Login succesful", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_SHORT).show();
                                 db.close();
                                 startActivity(new Intent(Login.this, StudentActivity.class));
                             } else {
