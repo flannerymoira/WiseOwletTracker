@@ -28,4 +28,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
     implementation 'com.jjoe64:graphview:4.2.2'
+    compile files('libs/additionnal.jar')
+    compile files('libs/mail.jar')
+    compile files('libs/activation.jar')
 }
