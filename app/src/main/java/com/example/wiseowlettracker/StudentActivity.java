@@ -106,7 +106,7 @@ public class StudentActivity extends AppCompatActivity {
 
         Calendar c = Calendar.getInstance();
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-        if (dayOfWeek == 2) {
+        if (dayOfWeek == 3) {
             // Send Weekly email
             sendMail();
         }
@@ -214,7 +214,7 @@ public class StudentActivity extends AppCompatActivity {
             message.setSubject(subject);
 
             message.setDataHandler(handler);
-            message.setContent(_multipart);
+         //   message.setContent(_multipart);
             if (recipients.indexOf(',') > 0)
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
             else
@@ -306,16 +306,18 @@ public class StudentActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... params) {
             try {
-                GMailSender sender = new GMailSender("moiraabyrne@gmail.com", "oldfield01");
-                sender.sendMail("This is a testing mail",
-                        "This is Body of testing mail","moiraabyrne@gmail.com",
-                        "moiraabyrne@gmail.com")                   ;
+                String buffer = ("Hi, " + StudentName + ".\n" + "You have studied");
+                GMailSender sender = new GMailSender("WiseOwletTracker@gmail.com", "FinalProject");
+                sender.sendMail("Wise Owlet Tracker Weekly Report",
+                        "Hi, " + StudentName + ".\n\n" + "You have studied",
+                        "moiraabyrne@gmail.com",
+                        StudentEmail)                   ;
             } catch (Exception e) {
 
                 Log.e("error", e.getMessage(), e);
-                return "Email Not Sent";
+                return "Weekly Email Not Sent";
             }
-            return "Email Sent";
+            return "Weekly Email Sent";
         }
 
         @Override
