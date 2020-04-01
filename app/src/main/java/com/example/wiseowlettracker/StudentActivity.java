@@ -55,7 +55,7 @@ import static com.example.wiseowlettracker.DatabaseHelper.StudentName;
 import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
 
 public class StudentActivity extends AppCompatActivity {
-
+    public static String TimeCompleted, FromDate;
     TextView txtName, txtMins;
     ImageButton btn_log, btn_result, btn_rep;
     SQLiteDatabase sumDb;
@@ -74,9 +74,8 @@ public class StudentActivity extends AppCompatActivity {
 
         txtMins = findViewById(R.id.txtViewMins);
         int tmpVal =  sumStudy();
-        String tmpTotal = Integer.toString(tmpVal);
-        txtMins.setText(tmpTotal);
-        sumDb.close();
+        TimeCompleted = Integer.toString(tmpVal);
+        txtMins.setText(TimeCompleted);
 
         btn_log = findViewById(R.id.btn_log);
 
@@ -106,10 +105,12 @@ public class StudentActivity extends AppCompatActivity {
 
         Calendar c = Calendar.getInstance();
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-        if (dayOfWeek == 3) {
+        if (dayOfWeek == 4) {
             // Send Weekly email
             sendMail();
         }
+
+        sumDb.close();
     }
 
     @Override
@@ -145,10 +146,10 @@ public class StudentActivity extends AppCompatActivity {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -7);
         Date lastweek = cal.getTime();
-        String fromDate = dl.format(lastweek);
+        FromDate = dl.format(lastweek);
 
         Cursor sumStudyCursor =  sumDb.rawQuery("select sum(time_spent) from study_log sl, student_subject ss where" +
-                " ss.ssy_id = sl.ssy_id and ss.student_id = ? and sl.entry_date > ?", new String[]{sid, fromDate});
+                " ss.ssy_id = sl.ssy_id and ss.student_id = ? and sl.entry_date > ?", new String[]{sid, FromDate});
 
         if (sumStudyCursor.moveToNext())
         { totalStudy = sumStudyCursor.getInt(0); }
@@ -157,6 +158,24 @@ public class StudentActivity extends AppCompatActivity {
         return totalStudy;
     }
 
+    //Get details of study from last week
+    public String findDailyStudy() {
+        String sid = Long.toString(StudentId);
+        StringBuffer buffer = new StringBuffer();
+        int tmpTime;
+        String stTime, stDate;
+
+        Cursor studyDetailCursor =  sumDb.rawQuery("select s.subject_name, sl.time_spent, st.study_type, sl.entry_date from study_log sl, student_subject ss, subject s, study_type st where" +
+                " ss.ssy_id = sl.ssy_id and st.study_id = sl.study_id and ss.subject_id = s.subject_id and ss.student_id = ? and sl.entry_date > ? order by sl.entry_date asc", new String[]{sid, FromDate});
+
+        while (studyDetailCursor.moveToNext())
+        { tmpTime = studyDetailCursor.getInt(1);
+            stTime = String.valueOf(tmpTime);
+            buffer.append(studyDetailCursor.getString(0) + " \t\t\t" + studyDetailCursor.getString(2) + "\t\t\t" + stTime + "\t\t\t" + studyDetailCursor.getString(3) + System.getProperty("line.separator")); }
+
+        studyDetailCursor.close();
+        return buffer.toString();
+    }
 
     public void sendMail() {
         try
@@ -306,11 +325,11 @@ public class StudentActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... params) {
             try {
-                String buffer = ("Hi, " + StudentName + ".\n" + "You have studied");
+
                 GMailSender sender = new GMailSender("WiseOwletTracker@gmail.com", "FinalProject");
                 sender.sendMail("Wise Owlet Tracker Weekly Report",
-                        "Hi, " + StudentName + ".\n\n" + "You have studied",
-                        "moiraabyrne@gmail.com",
+                        toString(),
+                        "WiseOwletTracker@gmail.com",
                         StudentEmail)                   ;
             } catch (Exception e) {
 
@@ -318,6 +337,15 @@ public class StudentActivity extends AppCompatActivity {
                 return "Weekly Email Not Sent";
             }
             return "Weekly Email Sent";
+        }
+
+        @Override
+        public String toString() {
+            String buffer = findDailyStudy();
+            return "Hi " + StudentName + "," + System.getProperty("line.separator") + System.getProperty("line.separator")
+                    + "congrats you have completed " + TimeCompleted + " minutes this week." + System.getProperty("line.separator")
+                    + "The breakdown is  : " + System.getProperty("line.separator") + System.getProperty("line.separator") + buffer +  System.getProperty("line.separator")
+                    + "Keep up the good work.";
         }
 
         @Override
