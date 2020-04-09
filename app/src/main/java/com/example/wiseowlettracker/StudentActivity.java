@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -99,13 +100,13 @@ public class StudentActivity extends AppCompatActivity {
         btn_rep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(StudentActivity.this, StudyHistory.class));
+                startActivity(new Intent(StudentActivity.this, ReportActivity.class));
             }
         });
 
         Calendar c = Calendar.getInstance();
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-        if (dayOfWeek == 4) {
+        if (dayOfWeek == 5) {
             // Send Weekly email
             sendMail();
         }
@@ -163,15 +164,20 @@ public class StudentActivity extends AppCompatActivity {
         String sid = Long.toString(StudentId);
         StringBuffer buffer = new StringBuffer();
         int tmpTime;
-        String stTime, stDate;
+        String stTopic, stSubject, stTime, stDate;
 
-        Cursor studyDetailCursor =  sumDb.rawQuery("select s.subject_name, sl.time_spent, st.study_type, sl.entry_date from study_log sl, student_subject ss, subject s, study_type st where" +
+        Cursor studyDetailCursor =  sumDb.rawQuery("select st.study_type, s.subject_name, sl.time_spent, sl.entry_date from study_log sl, student_subject ss, subject s, study_type st where" +
                 " ss.ssy_id = sl.ssy_id and st.study_id = sl.study_id and ss.subject_id = s.subject_id and ss.student_id = ? and sl.entry_date > ? order by sl.entry_date asc", new String[]{sid, FromDate});
 
         while (studyDetailCursor.moveToNext())
-        { tmpTime = studyDetailCursor.getInt(1);
+        { stTopic = studyDetailCursor.getString(0);
+        stTopic = stTopic.toLowerCase();
+            stSubject = studyDetailCursor.getString(1);
+            tmpTime = studyDetailCursor.getInt(2);
             stTime = String.valueOf(tmpTime);
-            buffer.append(studyDetailCursor.getString(0) + " \t\t\t" + studyDetailCursor.getString(2) + "\t\t\t" + stTime + "\t\t\t" + studyDetailCursor.getString(3) + System.getProperty("line.separator")); }
+            stDate = studyDetailCursor.getString(3);
+            stDate= stDate.substring(0, stDate.indexOf(" "));
+            buffer.append("Did " + stTopic + " in " + stSubject + " for " + stTime + " minutes on " + stDate + "." + System.getProperty("line.separator")); }
 
         studyDetailCursor.close();
         return buffer.toString();
@@ -233,7 +239,8 @@ public class StudentActivity extends AppCompatActivity {
             message.setSubject(subject);
 
             message.setDataHandler(handler);
-         //   message.setContent(_multipart);
+//            message.setContent(_multipart);
+
             if (recipients.indexOf(',') > 0)
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
             else
@@ -327,6 +334,7 @@ public class StudentActivity extends AppCompatActivity {
             try {
 
                 GMailSender sender = new GMailSender("WiseOwletTracker@gmail.com", "FinalProject");
+                sender.addAttachment("c:/images/owlet.png");
                 sender.sendMail("Wise Owlet Tracker Weekly Report",
                         toString(),
                         "WiseOwletTracker@gmail.com",

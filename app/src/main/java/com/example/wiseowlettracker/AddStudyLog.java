@@ -112,8 +112,8 @@ public class AddStudyLog extends AppCompatActivity {
         subjectList = new ArrayList<Subject>();
         String sid = Long.toString(StudentId);
 
-        Cursor studentSubject = ssDb.rawQuery("SELECT S.* FROM STUDENT_SUBJECT SS, SUBJECT S" +
-                " WHERE SS.SUBJECT_ID = S.SUBJECT_ID AND SS.STUDENT_ID = ?", new String[]{sid});
+        Cursor studentSubject = ssDb.rawQuery("select s.* from student_subject ss, subject s" +
+                " where ss.subject_id = s.subject_id and ss.student_id = ?", new String[]{sid});
 
         while (studentSubject.moveToNext()) {
             subject = new Subject();
