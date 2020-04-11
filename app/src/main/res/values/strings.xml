@@ -56,6 +56,8 @@
     <string name="exam">Exam</string>
     <string name="exam_result">Exam Result</string>
     <string name="add_result">Add Result</string>
-    <string name="start_date">Start Date</string>
-    <string name="end_date">End Date</string>
+    <string name="start_date">Study Report Start Date</string>
+    <string name="end_date">Study Report End Date</string>
+    <string name="exam_report">Exam Report</string>
+    <string name="study_report">Study Report</string>
 </resources>
