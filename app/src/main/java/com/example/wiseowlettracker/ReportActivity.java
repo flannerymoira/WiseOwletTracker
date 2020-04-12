@@ -94,11 +94,13 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth){
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        c.set(Calendar.MONTH, month);
         c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        SimpleDateFormat dl = new SimpleDateFormat("yyyy-MM-dd");
 
-        String currentDateString = DateFormat.getDateInstance().format(c.getTime());
+      //  String currentDateString = DateFormat.getDateInstance().format(c.getTime());
+        String currentDateString = dl.format(c.getTime());
 
         if (FirstDate) {
             TextView textStart = (TextView) findViewById(R.id.btnStartDate);

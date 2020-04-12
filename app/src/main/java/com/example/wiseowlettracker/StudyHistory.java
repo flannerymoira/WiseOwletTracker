@@ -14,7 +14,9 @@ import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static com.example.wiseowlettracker.DatabaseHelper.StudentId;
 import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
@@ -42,23 +44,20 @@ public class StudyHistory extends AppCompatActivity {
         Cursor studyHistCursor= histDb.rawQuery("select s.subject_name, sum(sl.time_spent) from study_log sl, student_subject ss, subject s where" +
                 " ss.ssy_id = sl.ssy_id and ss.subject_id = s.subject_id and ss.student_id = ? and sl.entry_date > ? group by s.subject_id", new String[]{sid, ReportFromDate});
 
-
+        String [] label = new String[6];
+        int[] studyTime = new int[6];
+        int sub = 0;
         while (studyHistCursor.moveToNext())
-        {   subNames.add(studyHistCursor.getString(0));
+        {  label[sub] = studyHistCursor.getString(0);
+            studyTime[sub] = studyHistCursor.getInt(1);
+            sub++;
         }
 
-      //  int num = subNames.size();
-        String [] label = new String[3];
-        label[0] = "   History";
-        label[1] = "Art";
-        label[2] = "English";
-
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(new DataPoint[]{
-
-                new DataPoint(0, 0),
-                new DataPoint(1, 200),
-                new DataPoint(2, 300),
-                new DataPoint(3, 100)
+                new DataPoint(0, studyTime[0]),
+                new DataPoint(1, studyTime[1]),
+                new DataPoint(2, studyTime[2]),
+                new DataPoint(3, studyTime[3])
         });
 
         studyHistCursor.close();
