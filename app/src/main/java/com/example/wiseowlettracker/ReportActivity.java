@@ -16,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.wiseowlettracker.Entities.DatePickerFragment;
 import com.example.wiseowlettracker.Entities.Exam;
@@ -29,6 +30,7 @@ import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
 
 public class ReportActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     public static int ExamId;
+    public static String ReportFromDate, ReportToDate;
     public static Boolean FirstDate;
     Button btnAddStartDate, btnAddEndDate;
     SQLiteDatabase repDb;
@@ -42,11 +44,13 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
         FirstDate = true;
+        ReportFromDate = "";
+        ReportToDate = "";
         examNameList = findViewById(R.id.examSpinner);
 
         //Access to database
-        DatabaseOpenHelper srConn = new DatabaseOpenHelper(this, DATABASE_NAME, null, 1);
-        repDb = srConn.getWritableDatabase();
+        DatabaseOpenHelper reportConn = new DatabaseOpenHelper(this, DATABASE_NAME, null, 1);
+        repDb = reportConn.getWritableDatabase();
 
         getExamList();
 
@@ -67,14 +71,18 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
             }
         });
 
-
         btn_study_rep = findViewById(R.id.btn_study_report);
+
         btn_study_rep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ReportActivity.this, StudyHistory.class));
+                if (ReportFromDate.equals("") || ReportToDate.equals(""))
+                    Toast.makeText(getApplicationContext(), "Start and end dates must be entered", Toast.LENGTH_SHORT).show();
+                else
+                    startActivity(new Intent(ReportActivity.this, StudyHistory.class));
             }
         });
+
     }
 
     public void getDate(View view) {
@@ -95,11 +103,13 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
         if (FirstDate) {
             TextView textStart = (TextView) findViewById(R.id.btnStartDate);
             textStart.setText(currentDateString);
+            ReportFromDate = currentDateString;
             FirstDate = false;
         }
         else {
             TextView textEnd = (TextView) findViewById(R.id.btnEndDate);
             textEnd.setText(currentDateString);
+            ReportToDate = currentDateString;
         }
 
     }
