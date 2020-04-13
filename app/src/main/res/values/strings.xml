@@ -60,4 +60,5 @@
     <string name="end_date">Study Report End Date</string>
     <string name="exam_report">Exam Report</string>
     <string name="study_report">Study Report</string>
+    <string name="line">Line</string>
 </resources>

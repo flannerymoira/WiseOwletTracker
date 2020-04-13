@@ -107,7 +107,7 @@ public class StudentActivity extends AppCompatActivity {
         Calendar c = Calendar.getInstance();
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
         if (dayOfWeek == 5) {
-            // Send Weekly email
+            // Send Weekly email on Friday (day 5)
             sendMail();
         }
 

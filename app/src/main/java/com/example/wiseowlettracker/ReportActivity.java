@@ -83,12 +83,22 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
             }
         });
 
+        btn_exam_rep = findViewById(R.id.btn_exam_report);
+
+        btn_exam_rep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ExamId == 0)
+                    Toast.makeText(getApplicationContext(), "Exam must be entered", Toast.LENGTH_SHORT).show();
+                else
+                    startActivity(new Intent(ReportActivity.this, ExamReport.class));
+            }
+        });
     }
 
     public void getDate(View view) {
         DialogFragment datePicker = new DatePickerFragment();
         datePicker.show(getSupportFragmentManager(), "date picker");
-
     }
 
     @Override
@@ -99,7 +109,6 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         SimpleDateFormat dl = new SimpleDateFormat("yyyy-MM-dd");
 
-      //  String currentDateString = DateFormat.getDateInstance().format(c.getTime());
         String currentDateString = dl.format(c.getTime());
 
         if (FirstDate) {

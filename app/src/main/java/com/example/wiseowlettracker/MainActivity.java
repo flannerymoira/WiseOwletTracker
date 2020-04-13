@@ -17,7 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-    public static String DATABASE_NAME = "wiseOwlet.db";
+    public static String DATABASE_NAME = "wiseOwlet1.db";
     SQLiteDatabase db;
     TextView txtQuote;
     Date today = Calendar.getInstance().getTime();

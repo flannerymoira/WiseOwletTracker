@@ -21,6 +21,7 @@ import java.util.Date;
 import static com.example.wiseowlettracker.DatabaseHelper.StudentId;
 import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
 import static com.example.wiseowlettracker.ReportActivity.ReportFromDate;
+import static com.example.wiseowlettracker.ReportActivity.ReportToDate;
 
 
 public class StudyHistory extends AppCompatActivity {
@@ -29,6 +30,9 @@ public class StudyHistory extends AppCompatActivity {
     int totalTime;
     String stSubject;
     ArrayList<String> subNames;
+    String [] label = new String[6];
+    int[] studyTime = new int[6];
+    int sub = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,28 +43,29 @@ public class StudyHistory extends AppCompatActivity {
         DatabaseOpenHelper histConn = new DatabaseOpenHelper(this, DATABASE_NAME, null, 1);
         histDb = histConn.getReadableDatabase();
 
-        GraphView graph = (GraphView) findViewById(R.id.graph);
+        String toDate = ReportToDate + " 23:59:59";
 
         Cursor studyHistCursor= histDb.rawQuery("select s.subject_name, sum(sl.time_spent) from study_log sl, student_subject ss, subject s where" +
-                " ss.ssy_id = sl.ssy_id and ss.subject_id = s.subject_id and ss.student_id = ? and sl.entry_date > ? group by s.subject_id", new String[]{sid, ReportFromDate});
+                " ss.ssy_id = sl.ssy_id and ss.subject_id = s.subject_id and ss.student_id = ? and sl.entry_date > ? and sl.entry_date < ? group by s.subject_id",
+                new String[]{sid, ReportFromDate, toDate});
 
-        String [] label = new String[6];
-        int[] studyTime = new int[6];
-        int sub = 0;
         while (studyHistCursor.moveToNext())
         {  label[sub] = studyHistCursor.getString(0);
             studyTime[sub] = studyHistCursor.getInt(1);
             sub++;
         }
 
+        studyHistCursor.close();
+
+        GraphView graph = (GraphView) findViewById(R.id.graph);
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(new DataPoint[]{
                 new DataPoint(0, studyTime[0]),
                 new DataPoint(1, studyTime[1]),
                 new DataPoint(2, studyTime[2]),
-                new DataPoint(3, studyTime[3])
+                new DataPoint(3, studyTime[3]),
+                new DataPoint(4, studyTime[4]),
+                new DataPoint(5, studyTime[5])
         });
-
-        studyHistCursor.close();
 
         graph.addSeries(series);
         // styling
@@ -75,9 +80,6 @@ public class StudyHistory extends AppCompatActivity {
         series.setAnimated(true);
 
         ConstraintLayout mainLayout = (ConstraintLayout) findViewById(R.id.studenthistory);
-   //   int w = mainLayout.getWidth();
-        //int h = mainLayout.getHeight();
-        //mainLayout.setRotation(270.0f);
 
         // set the viewport wider than the data, to have a nice view
         graph.getViewport().setMinX(0d);

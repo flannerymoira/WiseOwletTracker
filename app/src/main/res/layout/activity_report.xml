@@ -65,6 +65,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/barchart" />
 
+    <EditText
+        android:id="@+id/txtLine"
+        android:layout_width="360dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="48dp"
+        android:hint="@string/Add"
+        android:importantForAutofill="no"
+        android:lines="5"
+        android:scrollHorizontally="false"
+        android:selectAllOnFocus="false"
+        android:singleLine="false"
+        android:textSize="15sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/txtExam"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.313"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_study_report"
+        app:layout_constraintVertical_bias="0.0" />
+
     <TextView
         android:id="@+id/txtExam"
         android:layout_width="wrap_content"
