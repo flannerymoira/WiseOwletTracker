@@ -177,7 +177,7 @@ public class StudentActivity extends AppCompatActivity {
             stTime = String.valueOf(tmpTime);
             stDate = studyDetailCursor.getString(3);
             stDate= stDate.substring(0, stDate.indexOf(" "));
-            buffer.append("Did " + stTopic + " in " + stSubject + " for " + stTime + " minutes on " + stDate + "." + System.getProperty("line.separator")); }
+            buffer.append(stTopic + " in " + stSubject + " for " + stTime + " minutes on " + stDate + "." + System.getProperty("line.separator")); }
 
         studyDetailCursor.close();
         return buffer.toString();
@@ -351,8 +351,8 @@ public class StudentActivity extends AppCompatActivity {
         public String toString() {
             String buffer = findDailyStudy();
             return "Hi " + StudentName + "," + System.getProperty("line.separator") + System.getProperty("line.separator")
-                    + "congrats you have completed " + TimeCompleted + " minutes this week." + System.getProperty("line.separator")
-                    + "The breakdown is  : " + System.getProperty("line.separator") + System.getProperty("line.separator") + buffer +  System.getProperty("line.separator")
+                    + "congrats you have completed " + TimeCompleted + " minutes study this week." + System.getProperty("line.separator")
+                    + "The breakdown for this week is  " + System.getProperty("line.separator") + System.getProperty("line.separator") + buffer +  System.getProperty("line.separator")
                     + "Keep up the good work.";
         }
 

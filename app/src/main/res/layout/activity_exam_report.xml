@@ -8,11 +8,35 @@
     tools:context=".ExamReport">
 
     <com.jjoe64.graphview.GraphView
-        android:id="@+id/graph"
+    android:id="@+id/actualGraph"
+    android:layout_width="wrap_content"
+    android:layout_height="400dip"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_actual"
         android:layout_width="wrap_content"
-        android:layout_height="400dip"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="88dp"
+        android:layout_marginLeft="88dp"
+        android:layout_marginBottom="128dp"
+        android:text="@string/graph_msgs"
+        android:textColor="@color/Lime_green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_target"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="88dp"
+        android:layout_marginLeft="88dp"
+        android:layout_marginBottom="100dp"
+        android:textColor="@color/colorAccent"
+        android:text="@string/graph"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

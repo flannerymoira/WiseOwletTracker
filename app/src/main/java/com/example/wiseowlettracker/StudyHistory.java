@@ -30,8 +30,8 @@ public class StudyHistory extends AppCompatActivity {
     int totalTime;
     String stSubject;
     ArrayList<String> subNames;
-    String [] label = new String[6];
-    int[] studyTime = new int[6];
+    String [] subLabel = new String[6];
+    int[] studyTime = new int[7];
     int sub = 0;
 
     @Override
@@ -50,7 +50,8 @@ public class StudyHistory extends AppCompatActivity {
                 new String[]{sid, ReportFromDate, toDate});
 
         while (studyHistCursor.moveToNext())
-        {  label[sub] = studyHistCursor.getString(0);
+        {
+            subLabel[sub] = studyHistCursor.getString(0);
             studyTime[sub] = studyHistCursor.getInt(1);
             sub++;
         }
@@ -58,13 +59,15 @@ public class StudyHistory extends AppCompatActivity {
         studyHistCursor.close();
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
+        graph.setTitle("Study Report");
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(new DataPoint[]{
                 new DataPoint(0, studyTime[0]),
                 new DataPoint(1, studyTime[1]),
                 new DataPoint(2, studyTime[2]),
                 new DataPoint(3, studyTime[3]),
                 new DataPoint(4, studyTime[4]),
-                new DataPoint(5, studyTime[5])
+                new DataPoint(5, studyTime[5]),
+                new DataPoint(5, studyTime[6])
         });
 
         graph.addSeries(series);
@@ -82,15 +85,13 @@ public class StudyHistory extends AppCompatActivity {
         ConstraintLayout mainLayout = (ConstraintLayout) findViewById(R.id.studenthistory);
 
         // set the viewport wider than the data, to have a nice view
-        graph.getViewport().setMinX(0d);
-        graph.getViewport().setMaxX(5d);
-        graph.getViewport().setMinY(0d);
-        graph.getViewport().setMaxY(5d);
+        graph.getViewport().setMinY(0);
+        graph.getViewport().setMaxY(100);
         graph.getViewport().setXAxisBoundsManual(true);
 
         // use static labels for horizontal labels
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-        staticLabelsFormatter.setHorizontalLabels(label);
+        staticLabelsFormatter.setHorizontalLabels(subLabel);
         graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
 
     }

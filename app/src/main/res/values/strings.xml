@@ -61,4 +61,6 @@
     <string name="exam_report">Exam Report</string>
     <string name="study_report">Study Report</string>
     <string name="line">Line</string>
+    <string name="graph_msgs">Green Line is actual marks.</string>
+    <string name="graph">Red Line is target marks.</string>
 </resources>
