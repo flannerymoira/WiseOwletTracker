@@ -17,10 +17,10 @@ import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
 import static com.example.wiseowlettracker.ReportActivity.ExamId;
 
 public class ExamReport extends AppCompatActivity {
-    SQLiteDatabase examDb;
     String sid = Long.toString(StudentId);
     String examId = String.valueOf(ExamId);
-    String [] label = new String[6];
+    SQLiteDatabase examDb;
+    String [] subLabel = new String[6];
     int[] actualMark = new int[7];
     int[] targetMark = new int[7];
     int sub = 0;
@@ -34,14 +34,14 @@ public class ExamReport extends AppCompatActivity {
         DatabaseOpenHelper histConn = new DatabaseOpenHelper(this, DATABASE_NAME, null, 1);
         examDb = histConn.getReadableDatabase();
 
-        // Get subject, the mark achieved in an exam and the target make for this subject
+        // Get subject, the mark achieved in an exam and the target set for this subject
         Cursor examResultCursor= examDb.rawQuery("select s.subject_name, er.achieved_mark, ss.subject_target from exam_result er, student_subject ss, subject s where" +
                         " er.ssy_id = ss.ssy_id and ss.subject_id = s.subject_id and ss.student_id = ? and er.exam_id = ? ",
                 new String[]{sid, examId});
 
+        // Move the data selected into arrays
         while (examResultCursor.moveToNext())
-        {
-            label[sub] = examResultCursor.getString(0);
+        {   subLabel[sub] = examResultCursor.getString(0);
             actualMark[sub] = examResultCursor.getInt(1);
             targetMark[sub] = examResultCursor.getInt(2);
             sub++;
@@ -57,8 +57,7 @@ public class ExamReport extends AppCompatActivity {
                 new DataPoint(2, actualMark[2]),
                 new DataPoint(3, actualMark[3]),
                 new DataPoint(4, actualMark[4]),
-                new DataPoint(4, actualMark[5]),
-                new DataPoint(4, actualMark[6])
+                new DataPoint(5, actualMark[5])
         });
         actualGraph.addSeries(actualSeries);
 
@@ -75,8 +74,7 @@ public class ExamReport extends AppCompatActivity {
                 new DataPoint(2, targetMark[2]),
                 new DataPoint(3, targetMark[3]),
                 new DataPoint(4, targetMark[4]),
-                new DataPoint(4, targetMark[5]),
-                new DataPoint(4, targetMark[6])
+                new DataPoint(5, targetMark[5])
         });
         actualGraph.addSeries(targetSeries);
 
@@ -94,7 +92,7 @@ public class ExamReport extends AppCompatActivity {
 
         // use static labels for horizontal labels
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(actualGraph);
-        staticLabelsFormatter.setHorizontalLabels(label);
+        staticLabelsFormatter.setHorizontalLabels(subLabel);
         actualGraph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
     }
 }

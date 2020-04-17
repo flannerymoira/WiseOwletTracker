@@ -25,14 +25,12 @@ import static com.example.wiseowlettracker.ReportActivity.ReportToDate;
 
 
 public class StudyHistory extends AppCompatActivity {
-    SQLiteDatabase histDb;
     String sid = Long.toString(StudentId);
-    int totalTime;
+    SQLiteDatabase histDb;
+    int totalTime, sub = 0;
     String stSubject;
-    ArrayList<String> subNames;
     String [] subLabel = new String[6];
     int[] studyTime = new int[7];
-    int sub = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +41,17 @@ public class StudyHistory extends AppCompatActivity {
         DatabaseOpenHelper histConn = new DatabaseOpenHelper(this, DATABASE_NAME, null, 1);
         histDb = histConn.getReadableDatabase();
 
+        // To get the time spent on to date must add max time to ReportToDate.
         String toDate = ReportToDate + " 23:59:59";
 
+        // Get the total amount of time spent in each subject in the date range
         Cursor studyHistCursor= histDb.rawQuery("select s.subject_name, sum(sl.time_spent) from study_log sl, student_subject ss, subject s where" +
                 " ss.ssy_id = sl.ssy_id and ss.subject_id = s.subject_id and ss.student_id = ? and sl.entry_date > ? and sl.entry_date < ? group by s.subject_id",
                 new String[]{sid, ReportFromDate, toDate});
 
+        // Move the data selected into arrays
         while (studyHistCursor.moveToNext())
-        {
-            subLabel[sub] = studyHistCursor.getString(0);
+        {   subLabel[sub] = studyHistCursor.getString(0);
             studyTime[sub] = studyHistCursor.getInt(1);
             sub++;
         }
@@ -66,8 +66,7 @@ public class StudyHistory extends AppCompatActivity {
                 new DataPoint(2, studyTime[2]),
                 new DataPoint(3, studyTime[3]),
                 new DataPoint(4, studyTime[4]),
-                new DataPoint(5, studyTime[5]),
-                new DataPoint(5, studyTime[6])
+                new DataPoint(5, studyTime[5])
         });
 
         graph.addSeries(series);
@@ -79,14 +78,13 @@ public class StudyHistory extends AppCompatActivity {
             }
         });
 
-        series.setSpacing(20);
+        series.setSpacing(10);
         series.setAnimated(true);
 
         ConstraintLayout mainLayout = (ConstraintLayout) findViewById(R.id.studenthistory);
 
         // set the viewport wider than the data, to have a nice view
         graph.getViewport().setMinY(0);
-        graph.getViewport().setMaxY(100);
         graph.getViewport().setXAxisBoundsManual(true);
 
         // use static labels for horizontal labels
