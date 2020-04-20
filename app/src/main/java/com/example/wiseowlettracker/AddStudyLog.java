@@ -107,7 +107,7 @@ public class AddStudyLog extends AppCompatActivity {
     }
 
     //method to get array of subjects for a student from student_subject table
-    private void getStudentSubjectList() {
+    public void getStudentSubjectList() {
         Subject subject;
         subjectList = new ArrayList<Subject>();
         String sid = Long.toString(StudentId);
@@ -133,7 +133,7 @@ public class AddStudyLog extends AppCompatActivity {
         }
     }
 
-    private void getStudyList() {
+    public void getStudyList() {
         Study_Type study_type;
         studyList = new ArrayList<Study_Type>();
 

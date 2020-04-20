@@ -44,12 +44,12 @@ public class ResetPassword extends AppCompatActivity {
                 if (Password.equals(Confirm)) {
                     Boolean updatePass = updatePassword(Password, Email);
                     if (updatePass) {
-                        Toast.makeText(getApplicationContext(), "Reset password successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Reset password successfully.", Toast.LENGTH_SHORT).show();
                         passDb.close();
                         startActivity(new Intent(ResetPassword.this, Login.class));
                     }
                     else
-                        Toast.makeText(getApplicationContext(), "Reset Password failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Reset Password failed.", Toast.LENGTH_SHORT).show();
                 }
                 else
                     Toast.makeText(getApplicationContext(), "The two passwords entered do not match.", Toast.LENGTH_SHORT).show();

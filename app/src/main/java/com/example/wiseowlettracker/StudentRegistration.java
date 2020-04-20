@@ -42,18 +42,18 @@ public class StudentRegistration extends AppCompatActivity {
                 String phone_S = phone.getText().toString();
 
                 if (email_S.equals("") || password_S.equals("") || confirm_S.equals(""))
-                    Toast.makeText(getApplicationContext(), "Email and password fields must be entered", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Email and password fields must be entered to register.", Toast.LENGTH_SHORT).show();
                 else {
                     if (password_S.equals(confirm_S)) {
                         boolean checkEmail = mydb.checkEmail(email_S);
                         if (checkEmail) {
                             boolean added = mydb.createStudent(first_name_S, surname_S, email_S, password_S, phone_S);
                             if (added) {
-                                Toast.makeText(getApplicationContext(), "Account Registered!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Account Registered now.", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(StudentRegistration.this, SetupSubjects.class));
                             }
                             else
-                                Toast.makeText(getApplicationContext(), "Account not inserted", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Account not inserted.", Toast.LENGTH_SHORT).show();
                         }
                         else {
                             Toast.makeText(getApplicationContext(), "Account with this email address already exists!", Toast.LENGTH_SHORT).show();

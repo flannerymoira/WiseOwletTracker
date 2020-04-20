@@ -63,14 +63,14 @@ public class Login extends AppCompatActivity {
                 }
                 else {
                     if (Email.equals("") || Password.equals("")) {
-                        Toast.makeText(getApplicationContext(), "Fields are empty", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Fields are empty, please retry.", Toast.LENGTH_SHORT).show();
                     }
                     else {
                         Boolean checkEmail = db.checkEmail(Email);
                         if (!checkEmail) {
                             Boolean checkPassword = db.checkPassword(Email, Password);
                             if (checkPassword) {
-                                Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Log In successful.", Toast.LENGTH_SHORT).show();
                                 db.close();
                                 startActivity(new Intent(Login.this, StudentActivity.class));
                             } else {
@@ -79,7 +79,7 @@ public class Login extends AppCompatActivity {
                             }
                         } else {
                             retry_flag = retry_flag + 1;
-                            Toast.makeText(getApplicationContext(), "Log in failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Log In failed with incorrect email.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }

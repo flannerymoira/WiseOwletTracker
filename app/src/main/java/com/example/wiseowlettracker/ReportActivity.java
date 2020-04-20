@@ -77,7 +77,7 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
             @Override
             public void onClick(View v) {
                 if (ReportFromDate.equals("") || ReportToDate.equals(""))
-                    Toast.makeText(getApplicationContext(), "Start and end dates must be entered", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Start and end dates must be entered.", Toast.LENGTH_SHORT).show();
                 else
                     startActivity(new Intent(ReportActivity.this, StudyHistory.class));
             }
@@ -89,7 +89,7 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
             @Override
             public void onClick(View v) {
                 if (ExamId == 0)
-                    Toast.makeText(getApplicationContext(), "Exam must be entered", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Exam must be entered.", Toast.LENGTH_SHORT).show();
                 else
                     startActivity(new Intent(ReportActivity.this, ExamReport.class));
             }

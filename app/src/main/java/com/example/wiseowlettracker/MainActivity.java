@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private String getQuote() {
+    public String getQuote() {
 
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
         String todaysDate = df.format(today);

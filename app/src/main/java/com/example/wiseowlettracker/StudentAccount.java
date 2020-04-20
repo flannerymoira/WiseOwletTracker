@@ -24,7 +24,6 @@ import static com.example.wiseowlettracker.DatabaseHelper.StudentPhone;
 import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
 
 public class StudentAccount extends AppCompatActivity {
-    public static int SubjectId;
     public static String sid = Long.toString(StudentId);
     public static int ssyId;
     Spinner subList;
@@ -34,7 +33,7 @@ public class StudentAccount extends AppCompatActivity {
     EditText txtPhone, txtEmail, txtDailyTarget, txtWeeklyTarget, txtSubjectTarget;
     SQLiteDatabase saDb;
     int StudentDailyTarget, StudentWeeklyTarget;
-    String tmpDailyVal, tmpWeeklyVal, tmpSubjectTarget;
+    String tmpDailyVal, tmpWeeklyVal;
     Button btn_upd_phone, btn_upd_target, btn_upd_subject;
 
     @Override
@@ -80,7 +79,6 @@ public class StudentAccount extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0) {
                     ssyId = StudentSubjectList.get(position - 1).getSsy_Id();
-//                    String SubjectName = subNames.get(position);
                 }
             }
 
@@ -101,7 +99,7 @@ public class StudentAccount extends AppCompatActivity {
                 if (updatedPhone)
                     Toast.makeText(getApplicationContext(), "Updated phone successfully.", Toast.LENGTH_SHORT).show();
                 else
-                    Toast.makeText(getApplicationContext(), "Did not update, please retry.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Did not update phone, please retry.", Toast.LENGTH_SHORT).show();
             }});
 
         btn_upd_target = findViewById(R.id.btnUpdateTarget);
@@ -119,7 +117,7 @@ public class StudentAccount extends AppCompatActivity {
                     StudentWeeklyTarget = Integer.parseInt(weeklyVal);
                 }
                 else
-                    Toast.makeText(getApplicationContext(), "Did not update, please retry.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Did not update targets, please retry.", Toast.LENGTH_SHORT).show();
             }});
 
         btn_upd_subject = findViewById(R.id.btnUpdateSubject);
@@ -133,7 +131,7 @@ public class StudentAccount extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Updated subject target successfully.", Toast.LENGTH_SHORT).show();
                 }
                 else
-                    Toast.makeText(getApplicationContext(), "Did not update, please retry.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Did not update subject target, please retry.", Toast.LENGTH_SHORT).show();
             }});
     }
 
@@ -152,7 +150,7 @@ public class StudentAccount extends AppCompatActivity {
     }
 
     //method to get array of subjects for a student from student_subject table
-    private void getStudentSubjectList() {
+    public void getStudentSubjectList() {
         String sid = Long.toString(StudentId);
         Student_Subject  student_subject;
         StudentSubjectList = new ArrayList<Student_Subject>();
