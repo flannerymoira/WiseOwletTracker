@@ -16,8 +16,6 @@ import android.widget.Toast;
 
 import com.example.wiseowlettracker.Entities.Exam;
 import com.example.wiseowlettracker.Entities.Student_Subject;
-import com.example.wiseowlettracker.Entities.Study_Type;
-import com.example.wiseowlettracker.Entities.Subject;
 
 import java.util.ArrayList;
 
@@ -25,6 +23,9 @@ import static com.example.wiseowlettracker.DatabaseHelper.StudentId;
 import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
 import static com.example.wiseowlettracker.StudentAccount.ssyId;
 
+// Add a Student’s exam results.
+// Student must enter exam, subject and result.
+// Insert onto exam_result table.
 public class StudentResults extends AppCompatActivity {
     public static int ExamId;
     Spinner subList, examNameList;

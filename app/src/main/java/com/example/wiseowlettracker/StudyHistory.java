@@ -14,16 +14,13 @@ import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-
 import static com.example.wiseowlettracker.DatabaseHelper.StudentId;
 import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
 import static com.example.wiseowlettracker.ReportActivity.ReportFromDate;
 import static com.example.wiseowlettracker.ReportActivity.ReportToDate;
 
-
+// Run the Study Report.
+// Display a bar chart of study during that time.
 public class StudyHistory extends AppCompatActivity {
     String sid = Long.toString(StudentId);
     SQLiteDatabase histDb;

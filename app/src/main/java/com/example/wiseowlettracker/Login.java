@@ -11,8 +11,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+// Enter email and password to log in.
+//Option to Register new user or reset password.
+//If log in incorrectly 3 times then set the account to locked.
 public class Login extends AppCompatActivity {
-
     DatabaseHelper db;
     EditText txtemail, txtpass;
     TextView txtlogin, txtno_acc;

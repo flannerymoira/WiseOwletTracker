@@ -9,8 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+// Register a new Student.
+// Enter first name, surname, email, password, confirm password and phone.
+// Insert onto student table on the database.
 public class StudentRegistration extends AppCompatActivity {
-
     EditText email, first_name, surname, password, confirm, phone;
     Button continuebtn;
     DatabaseHelper mydb = new DatabaseHelper(this);

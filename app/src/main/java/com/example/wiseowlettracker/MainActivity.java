@@ -16,13 +16,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+// Get quote of the day and give option to Log In or Register new user.
 public class MainActivity extends AppCompatActivity {
     public static String DATABASE_NAME = "wiseOwlet1.db";
     SQLiteDatabase db;
     TextView txtQuote;
     Date today = Calendar.getInstance().getTime();
-    EditText txtemail, txtpass;
-    TextView txtlogin, txtno_acc;
     Button btn_login, btn_reg;
 
     @Override
@@ -38,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
         txtQuote = findViewById(R.id.txtQuote);
         txtQuote.setText(getQuote());
 
-        btn_reg = findViewById(R.id.btn_login);
-        btn_reg.setOnClickListener(new View.OnClickListener() {
+        btn_login = findViewById(R.id.btn_login);
+        btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, Login.class));

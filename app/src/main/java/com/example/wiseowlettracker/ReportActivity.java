@@ -32,13 +32,15 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
     public static int ExamId;
     public static String ReportFromDate, ReportToDate;
     public static Boolean FirstDate;
-    Button btnAddStartDate, btnAddEndDate;
     SQLiteDatabase repDb;
     Spinner examNameList;
     ArrayList<String> examType;
     ArrayList<Exam> examList;
     ImageButton btn_study_rep, btn_exam_rep;
 
+//    Option to run Study Report or Exam Report.
+//    Enter Start and end dates using Date Picker.
+//    Enter Exam if running Exam Report.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +79,7 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
             @Override
             public void onClick(View v) {
                 if (ReportFromDate.equals("") || ReportToDate.equals(""))
-                    Toast.makeText(getApplicationContext(), "Start and end dates must be entered.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Start and end dates must be entered to run Study Report.", Toast.LENGTH_SHORT).show();
                 else
                     startActivity(new Intent(ReportActivity.this, StudyHistory.class));
             }
@@ -89,7 +91,7 @@ public class ReportActivity extends AppCompatActivity implements DatePickerDialo
             @Override
             public void onClick(View v) {
                 if (ExamId == 0)
-                    Toast.makeText(getApplicationContext(), "Exam must be entered.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Exam must be entered to run Exam Report.", Toast.LENGTH_SHORT).show();
                 else
                     startActivity(new Intent(ReportActivity.this, ExamReport.class));
             }

@@ -23,6 +23,8 @@ import static com.example.wiseowlettracker.DatabaseHelper.StudentId;
 import static com.example.wiseowlettracker.DatabaseHelper.StudentPhone;
 import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
 
+// See the Student's account. Can change phone, daily and weekly targets and subject targets.
+// Update student, study_target and student_subject tables.
 public class StudentAccount extends AppCompatActivity {
     public static String sid = Long.toString(StudentId);
     public static int ssyId;

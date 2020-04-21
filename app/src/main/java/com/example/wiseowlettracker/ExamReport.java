@@ -16,6 +16,8 @@ import static com.example.wiseowlettracker.DatabaseHelper.StudentId;
 import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
 import static com.example.wiseowlettracker.ReportActivity.ExamId;
 
+// Run the Exam Report.
+// Display a linear chart of exam targets against actual results.
 public class ExamReport extends AppCompatActivity {
     String sid = Long.toString(StudentId);
     String examId = String.valueOf(ExamId);

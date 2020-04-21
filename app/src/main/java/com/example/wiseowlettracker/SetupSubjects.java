@@ -18,17 +18,19 @@ import java.util.ArrayList;
 
 import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
 
-public class SetupSubjects extends AppCompatActivity {
+// Enter daily and weekly targets. Insert onto study_target table.
+// Enter year, subject / level and subject target.
+// Have drop-down list of years and subject / level.
+// Insert onto student_subject table.
 
+public class SetupSubjects extends AppCompatActivity {
     public static int subId;
     public static String sYear;
     Spinner subList, yearList;
     ArrayList<String> subNames, yearNames;
     ArrayList<Subject> subjectList;
     EditText editDailyTarget, editWeeklyTarget, editTarget;
-
     SQLiteDatabase db;
-    DatabaseHelper myDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

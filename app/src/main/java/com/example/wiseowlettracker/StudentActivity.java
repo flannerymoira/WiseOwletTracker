@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,19 +41,15 @@ import javax.mail.internet.MimeMultipart;
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.security.Security;
-
-
 
 import static com.example.wiseowlettracker.DatabaseHelper.StudentEmail;
 import static com.example.wiseowlettracker.DatabaseHelper.StudentId;
 import static com.example.wiseowlettracker.DatabaseHelper.StudentName;
 import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
 
+//Look up the Student’s name to welcome them.
+// Get and show the total of the study done in the last week.
+// On Friday send an email giving a breakdown of the study that has been done.
 public class StudentActivity extends AppCompatActivity {
     public static String TimeCompleted, FromDate;
     TextView txtName, txtMins;

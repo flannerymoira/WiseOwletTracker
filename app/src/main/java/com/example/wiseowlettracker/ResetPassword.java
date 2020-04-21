@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
 
+// If the Student has forgotten password they can reset.
+// Enter email, password and confirm password.
+// Update student table and unlock account.
 public class ResetPassword extends AppCompatActivity {
     EditText email, password, confirm;
     Button resetbtn;

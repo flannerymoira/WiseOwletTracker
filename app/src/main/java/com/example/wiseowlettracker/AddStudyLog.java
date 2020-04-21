@@ -2,7 +2,6 @@ package com.example.wiseowlettracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,8 +15,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.fragment.app.DialogFragment;
-
 import com.example.wiseowlettracker.Entities.Study_Type;
 import com.example.wiseowlettracker.Entities.Subject;
 
@@ -26,6 +23,10 @@ import java.util.ArrayList;
 import static com.example.wiseowlettracker.DatabaseHelper.StudentId;
 import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
 
+//  Add a study log entry.
+//	Enter subject, type of study, optional note and time spent.
+//	Have drop-down list of subjects and study types.
+//	Insert onto study_log table.
 public class AddStudyLog extends AppCompatActivity {
     public static int SubjectId, StudyId;
     Spinner subList, typeOfStudy;
