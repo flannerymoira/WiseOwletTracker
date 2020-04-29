@@ -1,5 +1,6 @@
 package com.example.wiseowlettracker;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -24,9 +26,12 @@ import java.security.AccessController;
 import java.security.Provider;
 import java.security.Security;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
+import java.util.TimeZone;
 
 import javax.activation.DataSource;
 import javax.activation.DataHandler;
@@ -55,7 +60,9 @@ public class StudentActivity extends AppCompatActivity {
     TextView txtName, txtMins;
     ImageButton btn_log, btn_result, btn_rep;
     SQLiteDatabase sumDb;
+    boolean zeroStudy = false;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,12 +106,11 @@ public class StudentActivity extends AppCompatActivity {
             }
         });
 
-        Calendar c = Calendar.getInstance();
-        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-        if (dayOfWeek == 5) {
-            // Send Weekly email on Friday (day 5)
+        LocalDate currentdate = LocalDate.now();
+        java.time.DayOfWeek dayOfWeek = currentdate.getDayOfWeek();
+        if(currentdate.getDayOfWeek() == DayOfWeek.FRIDAY)
+            // Send Weekly email on Friday
             sendMail();
-        }
 
         sumDb.close();
     }
@@ -164,15 +170,22 @@ public class StudentActivity extends AppCompatActivity {
         Cursor studyDetailCursor =  sumDb.rawQuery("select st.study_type, s.subject_name, sl.time_spent, sl.entry_date from study_log sl, student_subject ss, subject s, study_type st where" +
                 " ss.ssy_id = sl.ssy_id and st.study_id = sl.study_id and ss.subject_id = s.subject_id and ss.student_id = ? and sl.entry_date > ? order by sl.entry_date asc", new String[]{sid, FromDate});
 
-        while (studyDetailCursor.moveToNext())
-        { stTopic = studyDetailCursor.getString(0);
-        stTopic = stTopic.toLowerCase();
-            stSubject = studyDetailCursor.getString(1);
-            tmpTime = studyDetailCursor.getInt(2);
-            stTime = String.valueOf(tmpTime);
-            stDate = studyDetailCursor.getString(3);
-            stDate= stDate.substring(0, stDate.indexOf(" "));
-            buffer.append(stTopic + " in " + stSubject + " for " + stTime + " minutes on " + stDate + "." + System.getProperty("line.separator")); }
+        // If no study done in last week then send inspirational message
+        if (studyDetailCursor.getCount() == 0) {
+            zeroStudy = true;
+            buffer.append("Now is the time to start back to study." + System.getProperty("line.separator"));
+            buffer.append("Success is the sum of small efforts, repeated day in and day out - Robert Collier.");
+        }
+        else {
+            while (studyDetailCursor.moveToNext())
+               {stTopic = studyDetailCursor.getString(0);
+                stTopic = stTopic.toLowerCase();
+                stSubject = studyDetailCursor.getString(1);
+                tmpTime = studyDetailCursor.getInt(2);
+                stTime = String.valueOf(tmpTime);
+                stDate = studyDetailCursor.getString(3);
+                stDate= stDate.substring(0, stDate.indexOf(" "));
+                buffer.append(stTopic + " in " + stSubject + " for " + stTime + " minutes on " + stDate + "." + System.getProperty("line.separator")); } }
 
         studyDetailCursor.close();
         return buffer.toString();
@@ -345,7 +358,11 @@ public class StudentActivity extends AppCompatActivity {
         @Override
         public String toString() {
             String buffer = findDailyStudy();
-            return "Hi " + StudentName + "," + System.getProperty("line.separator") + System.getProperty("line.separator")
+            if (zeroStudy)
+                return "Hi " + StudentName + "," + System.getProperty("line.separator") + System.getProperty("line.separator")
+                        + buffer +  System.getProperty("line.separator");
+            else
+                 return "Hi " + StudentName + "," + System.getProperty("line.separator") + System.getProperty("line.separator")
                     + "congrats you have completed " + TimeCompleted + " minutes study this week." + System.getProperty("line.separator")
                     + "The breakdown for this week is  " + System.getProperty("line.separator") + System.getProperty("line.separator") + buffer +  System.getProperty("line.separator")
                     + "Keep up the good work.";

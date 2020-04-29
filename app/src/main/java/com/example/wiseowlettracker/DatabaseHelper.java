@@ -12,8 +12,8 @@ import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static long StudentId;
-    public static String StudentName, StudentFullName, StudentPhone, StudentEmail;
+    static long StudentId;
+    static String StudentName, StudentFullName, StudentPhone, StudentEmail;
     SQLiteDatabase db;
 
    public DatabaseHelper(Context context) {
@@ -29,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //insert new student into the database
-    public boolean createStudent(String first_name, String surname, String email, String password, String phone){
+    boolean createStudent(String first_name, String surname, String email, String password, String phone){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -44,11 +44,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(ins==-1)
             {return false;}
         else
-            {
-            StudentId  = ins;
+            { StudentId  = ins;
             db.close();
-            return true;
-            }
+            return true; }
     }
 
     //check if email is correct
@@ -78,9 +76,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             StudentFullName  = studentCursor.getString(1) + " " + studentCursor.getString(2);
             StudentPhone = studentCursor.getString(3);
             StudentEmail = Email;
-            db.close();
+            studentCursor.close();
             return true;}
-        else { db.close();
+        else { studentCursor.close();
             return false;
         }
     }
@@ -91,11 +89,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Cursor setLockCursor =  db.rawQuery("update student set account_locked = 1  where email = ?", new String[]{Email});
 
-        if(setLockCursor .getCount()>0)
-        {  db.close();;
+        if(setLockCursor.getCount()>0)
+        {   setLockCursor.close();
             return false;}
         else
-        {  db.close();
+        {   setLockCursor.close();
             return true;}
 
     }
@@ -111,7 +109,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "daily_target, weekly_target", contentValues);
 
         db.close();
-        if(result==-1)
+        if (result==-1)
             return false;
         else
             return true;
@@ -145,9 +143,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Cursor ssyCursor =  db.rawQuery("select ssy_id from student_subject where student_id=? and subject_id=?", new String[]{sid, subid});
 
-        if (ssyCursor.moveToFirst()) {
+        if (ssyCursor.moveToFirst())
             ssy_id  = ssyCursor.getInt(0);
-        }
 
         ContentValues contentValues = new ContentValues();
         contentValues.put("ssy_id",ssy_id);
@@ -158,8 +155,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = db.insert("study_log", "ssy_id, " +
                 "study_id, note, time_spent", contentValues);
 
+        ssyCursor.close();
         db.close();
-        if(result==-1)
+        if (result==-1)
             return false;
         else
             return true;

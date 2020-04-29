@@ -38,7 +38,7 @@ public class StudyHistory extends AppCompatActivity {
         DatabaseOpenHelper histConn = new DatabaseOpenHelper(this, DATABASE_NAME, null, 1);
         histDb = histConn.getReadableDatabase();
 
-        // To get the time spent on to date must add max time to ReportToDate.
+        // To correctly get the time spent on the toDate must add max time to ReportToDate.
         String toDate = ReportToDate + " 23:59:59";
 
         // Get the total amount of time spent in each subject in the date range
@@ -78,13 +78,11 @@ public class StudyHistory extends AppCompatActivity {
         series.setSpacing(10);
         series.setAnimated(true);
 
-        ConstraintLayout mainLayout = (ConstraintLayout) findViewById(R.id.studenthistory);
-
         // set the viewport wider than the data, to have a nice view
         graph.getViewport().setMinY(0);
         graph.getViewport().setXAxisBoundsManual(true);
 
-        // use static labels for horizontal labels
+        // use array sublabel with subject names for the  horizontal labels
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
         staticLabelsFormatter.setHorizontalLabels(subLabel);
         graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);

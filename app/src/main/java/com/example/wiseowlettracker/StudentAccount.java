@@ -97,7 +97,7 @@ public class StudentAccount extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String phone_S = txtPhone.getText().toString();
-                Boolean updatedPhone = updatePhone(phone_S);
+                boolean updatedPhone = updatePhone(phone_S);
                 if (updatedPhone)
                     Toast.makeText(getApplicationContext(), "Updated phone successfully.", Toast.LENGTH_SHORT).show();
                 else
@@ -111,7 +111,7 @@ public class StudentAccount extends AppCompatActivity {
             public void onClick(View v) {
                 String dailyVal = txtDailyTarget.getText().toString();
                 String weeklyVal = txtWeeklyTarget.getText().toString();
-                Boolean updatedTarget = updateTargets(dailyVal, weeklyVal);
+                boolean updatedTarget = updateTargets(dailyVal, weeklyVal);
                 if (updatedTarget) {
                     Toast.makeText(getApplicationContext(), "Updated targets successfully.", Toast.LENGTH_SHORT).show();
 
@@ -128,7 +128,7 @@ public class StudentAccount extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String subTargetVal = txtSubjectTarget.getText().toString();
-                Boolean updatedSubTarget = updateSubTarget(subTargetVal);
+                boolean updatedSubTarget = updateSubTarget(subTargetVal);
                 if (updatedSubTarget) {
                     Toast.makeText(getApplicationContext(), "Updated subject target successfully.", Toast.LENGTH_SHORT).show();
                 }
@@ -155,22 +155,22 @@ public class StudentAccount extends AppCompatActivity {
     public void getStudentSubjectList() {
         String sid = Long.toString(StudentId);
         Student_Subject  student_subject;
-        StudentSubjectList = new ArrayList<Student_Subject>();
+        StudentSubjectList = new ArrayList<>();
 
-        subNames = new ArrayList<String>();
+        subNames = new ArrayList<>();
         subNames.add("(Subject / Target)");
 
         Cursor stuSubCursor = saDb.rawQuery("SELECT S.SUBJECT_NAME, SS.SUBJECT_TARGET, SS.SSY_ID, SS.Student_id FROM STUDENT_SUBJECT SS, SUBJECT S" +
                 " WHERE SS.SUBJECT_ID = S.SUBJECT_ID AND SS.STUDENT_ID = ?", new String[]{sid});
 
         while (stuSubCursor.moveToNext()) {
-            student_subject = new Student_Subject();
-            student_subject.setSsy_Id(stuSubCursor.getInt(2));
-            student_subject.setStudentId(stuSubCursor.getInt(3));
-            StudentSubjectList.add(student_subject);
+                student_subject = new Student_Subject();
+                student_subject.setSsy_Id(stuSubCursor.getInt(2));
+                student_subject.setStudentId(stuSubCursor.getInt(3));
+                StudentSubjectList.add(student_subject);
 
-            subNames.add(stuSubCursor.getString(0) + " / " + stuSubCursor.getString(1));
-         } // end while        }
+                subNames.add(stuSubCursor.getString(0) + " / " + stuSubCursor.getString(1));
+        } // end while
 
         stuSubCursor.close();
     }
