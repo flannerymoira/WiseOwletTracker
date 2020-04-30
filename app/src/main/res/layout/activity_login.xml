@@ -114,12 +114,11 @@
 
     <ImageButton
         android:id="@+id/imageLogin"
-        style="@android:style/Widget.DeviceDefault.ImageButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="121dp"
         android:layout_height="70dp"
         android:layout_marginTop="348dp"
         android:layout_marginBottom="39dp"
-        android:background="@color/Bluecolor"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/txt_noacc"
         app:layout_constraintEnd_toEndOf="parent"

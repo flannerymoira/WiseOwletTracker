@@ -93,6 +93,7 @@ tools:context=".StudentRegistration">
 
 <Button
     android:id="@+id/btnContReg"
+    style="@style/Widget.AppCompat.Button.Borderless"
     android:layout_width="105dp"
     android:layout_height="wrap_content"
     android:layout_marginStart="150dp"
@@ -100,7 +101,6 @@ tools:context=".StudentRegistration">
     android:layout_marginTop="480dp"
     android:layout_marginEnd="100dp"
     android:layout_marginRight="100dp"
-    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
     android:textColor="@color/colorPrimary"
     android:text="@string/btn_cont"
     app:layout_constraintEnd_toEndOf="parent"

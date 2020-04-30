@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -32,7 +33,7 @@ public class SetupSubjects extends AppCompatActivity {
     ArrayList<Subject> subjectList;
     EditText editDailyTarget, editWeeklyTarget, editTarget;
     SQLiteDatabase db;
-    Button btn_login;
+    ImageButton image_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +85,8 @@ public class SetupSubjects extends AppCompatActivity {
             }
         });
 
-        btn_login = findViewById(R.id.btn_login);
-        btn_login.setOnClickListener(new View.OnClickListener() {
+        image_login = findViewById(R.id.imageLogin);
+        image_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(SetupSubjects.this, Login.class));
