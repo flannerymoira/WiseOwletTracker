@@ -2,6 +2,7 @@ package com.example.wiseowlettracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ public class SetupSubjects extends AppCompatActivity {
     ArrayList<Subject> subjectList;
     EditText editDailyTarget, editWeeklyTarget, editTarget;
     SQLiteDatabase db;
+    Button btn_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,14 @@ public class SetupSubjects extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        btn_login = findViewById(R.id.btn_login);
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SetupSubjects.this, Login.class));
             }
         });
     }

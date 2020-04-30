@@ -18,7 +18,7 @@ import java.util.Date;
 
 // Get quote of the day and give option to Log In or Register new user.
 public class MainActivity extends AppCompatActivity {
-    public static String DATABASE_NAME = "wiseOwlet1.db";
+    public static String DATABASE_NAME = "wiseOwlet.db";
     SQLiteDatabase db;
     TextView txtQuote;
     Date today = Calendar.getInstance().getTime();

@@ -38,6 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("email",email);
         contentValues.put("password",password);
         contentValues.put("phone",phone);
+        contentValues.put("account_locked",0);
 
         long ins = db.insert("student", null, contentValues);
 
