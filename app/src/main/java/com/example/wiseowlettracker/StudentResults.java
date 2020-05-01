@@ -91,11 +91,22 @@ public class StudentResults extends AppCompatActivity {
             public void onClick(View v) {
                 editResult = findViewById(R.id.editResult);
                 String exam_res = editResult.getText().toString();
-                Boolean addResult = createResult(exam_res);
-                if (addResult)
-                    Toast.makeText(getApplicationContext(), "Added result successfully.", Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(getApplicationContext(), "Did not add, please retry.", Toast.LENGTH_SHORT).show();
+
+                if (ssyId == 0 ||  ExamId== 0) {
+                    Toast.makeText(StudentResults.this, "Fields are empty, please retry", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    if (exam_res.equals(""))
+                        Toast.makeText(StudentResults.this, "Enter Result, please retry", Toast.LENGTH_LONG).show();
+                    else {
+
+                        Boolean addResult = createResult(exam_res);
+                        if (addResult)
+                            Toast.makeText(getApplicationContext(), "Added result successfully.", Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(getApplicationContext(), "Did not add, please retry.", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }});
     }
 

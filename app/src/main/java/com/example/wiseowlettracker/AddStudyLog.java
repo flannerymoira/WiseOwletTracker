@@ -22,13 +22,14 @@ import java.util.ArrayList;
 
 import static com.example.wiseowlettracker.DatabaseHelper.StudentId;
 import static com.example.wiseowlettracker.MainActivity.DATABASE_NAME;
+import static com.example.wiseowlettracker.StudentActivity.TimeCompleted;
 
 //  Add a study log entry.
 //	Enter subject, type of study, optional note and time spent.
 //	Have drop-down list of subjects and study types.
 //	Insert onto study_log table.
 public class AddStudyLog extends AppCompatActivity {
-    public static int SubjectId, StudyId;
+    public static int SubjectId = 0, StudyId = 0;
     Spinner subList, typeOfStudy;
     ArrayList<String> subNames, studyType;
     ArrayList<Subject> subjectList;
@@ -162,16 +163,24 @@ public class AddStudyLog extends AppCompatActivity {
         editNote = (EditText) findViewById(R.id.editNote);
         editTime = (EditText) findViewById(R.id.editTime);
         String tempVal = editTime.getText().toString();
-        int time = Integer.parseInt(tempVal);
+        int time = 0;
 
-        boolean logInserted = slDb.createStudyLog(editNote.getText().toString(), time);
+        if (SubjectId == 0 || StudyId == 0) {
+            Toast.makeText(AddStudyLog.this, "Fields are empty, please retry", Toast.LENGTH_LONG).show();
+        }
+        else {
+            if (tempVal.equals(""))
+                Toast.makeText(AddStudyLog.this, "Enter Time, please retry", Toast.LENGTH_LONG).show();
+            else {
+                time = Integer.parseInt(tempVal);
+                boolean logInserted = slDb.createStudyLog(editNote.getText().toString(), time);
 
-        if (logInserted = true) {
-            Toast.makeText(AddStudyLog.this, "Study log entry made.", Toast.LENGTH_LONG).show();
-            //  setContentView(R.layout.activity_setup_subjects);
-        } else {
-            Toast.makeText(AddStudyLog.this, "Incorrect data.", Toast.LENGTH_LONG).show();
-            //setContentView(R.layout.activity_setup_subjects);}
+                if (logInserted = true) {
+                    Toast.makeText(AddStudyLog.this, "Study log entry made.", Toast.LENGTH_LONG).show();
+                    TimeCompleted = TimeCompleted + time;
+                } else
+                    Toast.makeText(AddStudyLog.this, "Incorrect data.", Toast.LENGTH_LONG).show();
+            }
         }
     } // end addSubject
 

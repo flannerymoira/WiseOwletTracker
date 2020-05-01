@@ -59,6 +59,9 @@
 
     <Button
         android:id="@+id/btn_log"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:textSize="20sp"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="64dp"
@@ -73,8 +76,8 @@
 
     <EditText
         android:id="@+id/editNote"
-        android:layout_width="147dp"
-        android:layout_height="57dp"
+        android:layout_width="293dp"
+        android:layout_height="88dp"
         android:layout_marginStart="64dp"
         android:layout_marginLeft="64dp"
         android:layout_marginBottom="56dp"
@@ -90,7 +93,9 @@
         android:id="@+id/editTime"
         android:layout_width="153dp"
         android:layout_height="39dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="24dp"
         android:ems="10"
         android:hint="@string/time"
         android:importantForAutofill="no"
