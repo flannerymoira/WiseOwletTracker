@@ -2,6 +2,7 @@ package com.example.wiseowlettracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -36,7 +37,7 @@ public class StudentAccount extends AppCompatActivity {
     SQLiteDatabase saDb;
     int StudentDailyTarget, StudentWeeklyTarget;
     String tmpDailyVal, tmpWeeklyVal;
-    Button btn_upd_phone, btn_upd_target, btn_upd_subject;
+    Button btn_upd_phone, btn_upd_target, btn_upd_subject, btn_add_subject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,12 +129,25 @@ public class StudentAccount extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String subTargetVal = txtSubjectTarget.getText().toString();
-                boolean updatedSubTarget = updateSubTarget(subTargetVal);
-                if (updatedSubTarget) {
-                    Toast.makeText(getApplicationContext(), "Updated subject target successfully.", Toast.LENGTH_SHORT).show();
+                int target = Integer.parseInt(subTargetVal);
+                if ((target == 0) || (target > 100))
+                    Toast.makeText(StudentAccount.this, "Subject target must be between 0 and 100.", Toast.LENGTH_LONG).show();
+                else {
+
+                    boolean updatedSubTarget = updateSubTarget(subTargetVal);
+                    if (updatedSubTarget) {
+                        Toast.makeText(getApplicationContext(), "Updated subject target successfully.", Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(getApplicationContext(), "Did not update subject target, please retry.", Toast.LENGTH_SHORT).show();
                 }
-                else
-                    Toast.makeText(getApplicationContext(), "Did not update subject target, please retry.", Toast.LENGTH_SHORT).show();
+            }});
+
+        btn_add_subject = findViewById(R.id.btnAddSubject);
+
+        btn_add_subject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(StudentAccount.this, SetupSubjects.class));
             }});
     }
 

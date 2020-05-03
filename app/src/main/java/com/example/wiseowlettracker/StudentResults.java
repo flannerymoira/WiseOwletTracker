@@ -100,11 +100,16 @@ public class StudentResults extends AppCompatActivity {
                         Toast.makeText(StudentResults.this, "Enter Result, please retry", Toast.LENGTH_LONG).show();
                     else {
 
-                        Boolean addResult = createResult(exam_res);
-                        if (addResult)
-                            Toast.makeText(getApplicationContext(), "Added result successfully.", Toast.LENGTH_SHORT).show();
-                        else
-                            Toast.makeText(getApplicationContext(), "Did not add, please retry.", Toast.LENGTH_SHORT).show();
+                        int result = Integer.parseInt(exam_res);
+                        if ((result == 0) || (result > 100))
+                            Toast.makeText(StudentResults.this, "Result must be between 0 and 100.", Toast.LENGTH_LONG).show();
+                        else {
+                            Boolean addResult = createResult(exam_res);
+                            if (addResult)
+                                Toast.makeText(getApplicationContext(), "Added result successfully.", Toast.LENGTH_SHORT).show();
+                            else
+                                Toast.makeText(getApplicationContext(), "Did not add, please retry.", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }});

@@ -155,17 +155,22 @@ public class SetupSubjects extends AppCompatActivity {
         DatabaseHelper myDb = new DatabaseHelper(this);
         editTarget = (EditText) findViewById(R.id.editTarget);
         String tempVal = editTarget.getText().toString();
-        int target = Integer.parseInt(tempVal);
+        if (tempVal.equals("") || (sYear .equals("") || subId == 0))
+            Toast.makeText(SetupSubjects.this, "Must enter year, subject and subject target.", Toast.LENGTH_LONG).show();
+        else {
+            int target = Integer.parseInt(tempVal);
 
-        boolean subInserted = myDb.createStudentSubject(sYear, subId, target);
+            if ((target == 0) || (target > 100)) {
+                Toast.makeText(SetupSubjects.this, "Subject target must be between 0 and 100.", Toast.LENGTH_LONG).show();
+            }
+            else {
+                boolean subInserted = myDb.createStudentSubject(sYear, subId, target);
 
-        if (subInserted = true) {
-            Toast.makeText(SetupSubjects.this, "Subject is set up.", Toast.LENGTH_LONG).show();
-            //  setContentView(R.layout.activity_setup_subjects);
-        } else {
-            Toast.makeText(SetupSubjects.this, "Incorrect data.", Toast.LENGTH_LONG).show();
-            //setContentView(R.layout.activity_setup_subjects);}
-        }
+                if (subInserted = true)
+                     Toast.makeText(SetupSubjects.this, "Subject is set up.", Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(SetupSubjects.this, "Incorrect data.", Toast.LENGTH_LONG).show();
+        }}
     } // end addSubject
 
 } // end setupSubjects

@@ -53,6 +53,7 @@
     <string name="update_phone">Update Phone</string>
     <string name="update_target">Update Target</string>
     <string name="update_subject">Update Subject Target</string>
+    <string name="new_subject">Add New Subject / Target </string>
     <string name="exam">Exam</string>
     <string name="exam_result">Exam Result</string>
     <string name="add_result">Add Result</string>
